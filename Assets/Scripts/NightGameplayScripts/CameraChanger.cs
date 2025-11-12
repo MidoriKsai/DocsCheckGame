@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class CameraChanger : MonoBehaviour
 {
-    public Button nextButton;
-    public Button previousButton;
+    public GameObject[] camerasButtons;
     private int currentCameraIndex = 0;
     public TextMeshProUGUI cameraNumber;
     
@@ -13,11 +12,10 @@ public class CameraChanger : MonoBehaviour
     void Start()
     {
         ChangeCameraView();
-        nextButton.onClick.AddListener(ChangeNextButton);
-        previousButton.onClick.AddListener(ChangePreviousButton);
+        camerasButtons.onClick.AddListener(ChangeCamera);
     }
 
-    void ChangeNextButton()
+    void ChangeCamera()
     {
         cameras[currentCameraIndex].SetActive(false);
         currentCameraIndex ++;
