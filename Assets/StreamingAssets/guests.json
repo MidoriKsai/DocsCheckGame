@@ -1,0 +1,252 @@
+[
+  {
+    "id": "guest1",
+    "firstName": "Джеймс",
+    "lastName": "Смит",
+    "age": "34",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest1",
+    "portraitSprite": "Guests/guest1",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest2",
+    "firstName": "Мэри",
+    "lastName": "Джонсон",
+    "age": "28",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest2",
+    "portraitSprite": "Guests/guest2",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest3",
+    "firstName": "Роберт",
+    "lastName": "Уильямс",
+    "age": "41",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest3",
+    "portraitSprite": "Guests/guest3",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest4",
+    "firstName": "Патрисия",
+    "lastName": "Браун",
+    "age": "19",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest4",
+    "portraitSprite": "Guests/guest4",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest5",
+    "firstName": "Александр",
+    "lastName": "Иванов",
+    "age": "57",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest5",
+    "portraitSprite": "Guests/guest5",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest6",
+    "firstName": "Дженнифер",
+    "lastName": "Гарсия",
+    "age": "52",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest6",
+    "portraitSprite": "Guests/guest6",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest7",
+    "firstName": "Майкл",
+    "lastName": "Миллер",
+    "age": "12",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest7",
+    "portraitSprite": "Guests/guest7",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest8",
+    "firstName": "Линда",
+    "lastName": "Дэвис",
+    "age": "45",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest8",
+    "portraitSprite": "Guests/guest8",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest9",
+    "firstName": "Дэвид",
+    "lastName": "Родригес",
+    "age": "31",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest9",
+    "portraitSprite": "Guests/guest9",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest10",
+    "firstName": "Елизавета",
+    "lastName": "Мартинес",
+    "age": "24",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest10",
+    "portraitSprite": "Guests/guest10",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest11",
+    "firstName": "Уильям",
+    "lastName": "Эрнандес",
+    "age": "38",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest11",
+    "portraitSprite": "Guests/guest11",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest12",
+    "firstName": "Наталья",
+    "lastName": "Петрова",
+    "age": "36",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest12",
+    "portraitSprite": "Guests/guest12",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest13",
+    "firstName": "Ричард",
+    "lastName": "Гонсалес",
+    "age": "29",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest13",
+    "portraitSprite": "Guests/guest13",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest14",
+    "firstName": "Сьюзан",
+    "lastName": "Уилсон",
+    "age": "15",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest14",
+    "portraitSprite": "Guests/guest14",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest15",
+    "firstName": "Джозеф",
+    "lastName": "Андерсон",
+    "age": "14",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest15",
+    "portraitSprite": "Guests/guest15",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest16",
+    "firstName": "Джессика",
+    "lastName": "Томас",
+    "age": "33",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest16",
+    "portraitSprite": "Guests/guest16",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest17",
+    "firstName": "Томас",
+    "lastName": "Тейлор",
+    "age": "48",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest17",
+    "portraitSprite": "Guests/guest17",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest18",
+    "firstName": "Сара",
+    "lastName": "Мур",
+    "age": "26",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest18",
+    "portraitSprite": "Guests/guest18",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest19",
+    "firstName": "Сергей",
+    "lastName": "Попов",
+    "age": "62",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest19",
+    "portraitSprite": "Guests/guest19",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest20",
+    "firstName": "Карен",
+    "lastName": "Мартин",
+    "age": "40",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest20",
+    "portraitSprite": "Guests/guest20",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest21",
+    "firstName": "Кристофер",
+    "lastName": "Ли",
+    "age": "12",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest21",
+    "portraitSprite": "Guests/guest21",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest22",
+    "firstName": "Нэнси",
+    "lastName": "Перес",
+    "age": "57",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest22",
+    "portraitSprite": "Guests/guest22",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest23",
+    "firstName": "Даниэль",
+    "lastName": "Томпсон",
+    "age": "35",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest23",
+    "portraitSprite": "Guests/guest23",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest24",
+    "firstName": "Лиза",
+    "lastName": "Уайт",
+    "age": "22",
+    "gender": "Жен",
+    "fullBodySprite": "Guests/guest24",
+    "portraitSprite": "Guests/guest24",
+    "thingSprite": ""
+  },
+  {
+    "id": "guest25",
+    "firstName": "Мэтью",
+    "lastName": "Харрис",
+    "age": "17",
+    "gender": "Муж",
+    "fullBodySprite": "Guests/guest25",
+    "portraitSprite": "Guests/guest25",
+    "thingSprite": ""
+  }
+]
