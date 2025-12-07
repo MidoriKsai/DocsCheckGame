@@ -8,21 +8,22 @@ namespace DayGameplayScripts
         public Image guestImage;
         public GuestData guestData;
 
-        private Button guestButton;
+        private Button _guestButton;
 
         public System.Action<GuestController> OnReadyForDecision;
 
         private void Awake()
         {
-            guestButton = GetComponent<Button>();
-            guestButton.onClick.AddListener(() => OnReadyForDecision?.Invoke(this));
+            _guestButton = GetComponent<Button>();
+            _guestButton.onClick.AddListener(() => OnReadyForDecision?.Invoke(this));
         }
 
         public void Initialize(GuestData data)
         {
             guestData = data;
-            if (guestImage && data.LoadedFullBody != null)
-                guestImage.sprite = data.LoadedFullBody;
+            if (!guestImage || data.LoadedFullBody == null) return;
+            guestImage.sprite = data.LoadedFullBody;
+            guestImage.preserveAspect = true;
         }
 
         public void Despawn(System.Action onComplete)
