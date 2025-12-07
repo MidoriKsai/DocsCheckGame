@@ -11,6 +11,7 @@ namespace DayGameplayScripts
         public string age;
         public string gender;
         public string validUntil;
+        public int validUntilDay;
         public bool isFake;
         public Sprite portrait;
 
@@ -22,7 +23,7 @@ namespace DayGameplayScripts
             gender = guest.gender;
             portrait = guest.LoadedPortrait;
 
-            isFake = guest.isFakeByName;
+            isFake = guest.IsFake;
 
             if (!isFake && UnityEngine.Random.value < 0.2f)
             {
@@ -31,7 +32,8 @@ namespace DayGameplayScripts
             }
             else
             {
-                var validDate = new DateTime(DateTime.Now.Year, 8, UnityEngine.Random.Range(1, 6));
+                validUntilDay = UnityEngine.Random.Range(1, 6);
+                var validDate = new DateTime(DateTime.Now.Year, 8, validUntilDay);
                 validUntil = validDate.ToString("dd.MM.yyyy");
             }
         }
@@ -39,7 +41,7 @@ namespace DayGameplayScripts
         private void RandomizeError()
         {
             int badDay = UnityEngine.Random.Range(1, 32);
-            var invalidDate = new DateTime(DateTime.Now.Year, 7, badDay);
+            var invalidDate = new DateTime(DateTime.Now.Year, UnityEngine.Random.Range(1, 8), badDay);
             validUntil = invalidDate.ToString("dd.MM.yyyy");
         }
     }

@@ -9,136 +9,237 @@ namespace DayGameplayScripts
     {
         public WantedListGenerator wantedListGenerator;
         public int guestsPerDay = 10;
-        public int totalDays = 5;
-        public DayManager dayManager; // ссылка на DayManager для проверки арестованных
-
+        public DayManager dayManager;
         [HideInInspector] public List<GuestData> todayGuests = new();
-        private Queue<GuestData> wantedQueue = new(); // очередь уникальных разыскиваемых
+        private readonly Queue<GuestData> _wantedQueue = new();
+        private List<GuestData> _allWantedGuests = new();
 
         private void Awake()
         {
-            InitWantedQueue();
+            InitWantedData();
         }
 
-        private void InitWantedQueue()
+        private void InitWantedData()
         {
-            wantedQueue.Clear();
-            var list = new List<GuestData>(wantedListGenerator.wantedGuests);
-            Shuffle(list);
-            foreach (var w in list)
-                wantedQueue.Enqueue(w);
+            _allWantedGuests = new List<GuestData>(wantedListGenerator.wantedGuests);
+            _wantedQueue.Clear();
+            var availableWanted = _allWantedGuests
+                .Where(w => !dayManager.IsGuestArrested(w))
+                .ToList();
+            
+            Shuffle(availableWanted);
+            foreach (var w in availableWanted)
+                _wantedQueue.Enqueue(w);
         }
 
         public void GenerateGuestsForDay(int dayNumber)
         {
             todayGuests.Clear();
-
-            var allGuests = wantedListGenerator.allGuests
+            var availableGuests = wantedListGenerator.allGuests
                 .Where(g => !dayManager.IsGuestArrested(g))
                 .ToList();
 
-            if (allGuests.Count == 0)
+            if (availableGuests.Count == 0)
             {
-                Debug.LogError("Список всех гостей пуст или все арестованы!");
+                Debug.LogError("Нет доступных гостей!");
                 return;
             }
-
-            // Добавляем настоящего разыскиваемого (уникального)
-            GuestData todayWanted = null;
-            while (wantedQueue.Count > 0)
+            
+            if (_wantedQueue.Count > 0)
             {
-                var candidate = wantedQueue.Dequeue();
-                if (!dayManager.IsGuestArrested(candidate))
-                {
-                    todayWanted = candidate;
-                    break;
-                }
-            }
-
-            if (todayWanted != null)
-            {
+                var todayWanted = _wantedQueue.Dequeue();
                 todayGuests.Add(todayWanted);
-
-                // создаём fake для него (никогда не совпадает с реальным wanted)
-                var fake = CreateFakeGuest(todayWanted, allGuests);
-                todayGuests.Add(fake);
+            }
+            else
+            {
+                Debug.Log("Нет доступных разыскиваемых в очереди");
             }
 
-            // Добавляем случайных дополнительных fake
-            int extraFakes = UnityEngine.Random.Range(0, 3);
-            for (int i = 0; i < extraFakes; i++)
-            {
-                var randomWanted = wantedListGenerator.wantedGuests[
-                    UnityEngine.Random.Range(0, wantedListGenerator.wantedGuests.Count)
-                ];
-                if (dayManager.IsGuestArrested(randomWanted)) continue;
+            var wantedFakesToCreate = UnityEngine.Random.Range(1, 3);
+            var availableForWantedFakes = _allWantedGuests.ToList();
 
-                var fakeExtra = CreateFakeGuest(randomWanted, allGuests);
-                todayGuests.Add(fakeExtra);
+            for (var i = 0; i < wantedFakesToCreate && availableForWantedFakes.Count > 0; i++)
+            {
+                var wantedForFake = availableForWantedFakes[UnityEngine.Random.Range(0, availableForWantedFakes.Count)];
+                var fakeWanted = CreateFakeForWanted(wantedForFake);
+                todayGuests.Add(fakeWanted);
+
+                availableForWantedFakes.Remove(wantedForFake);
+            }
+            
+            var regularFakesCount = UnityEngine.Random.Range(1, 3);
+
+            var guestsForFakes = availableGuests
+                .Where(g => !todayGuests.Contains(g))
+                .ToList();
+            
+            for (var i = 0; i < regularFakesCount && guestsForFakes.Count > 0; i++)
+            {
+                var baseGuest = guestsForFakes[UnityEngine.Random.Range(0, guestsForFakes.Count)];
+                var fakeGuest = CreateFakeForRegularGuest(baseGuest);
+                todayGuests.Add(fakeGuest);
+                guestsForFakes.Remove(baseGuest);
             }
 
-            // Добиваем обычными гостями до guestsPerDay
-            var availableGuests = new List<GuestData>(allGuests);
-            availableGuests.RemoveAll(g => todayGuests.Contains(g));
-
-            while (todayGuests.Count < guestsPerDay && availableGuests.Count > 0)
+            var remainingGuests = availableGuests
+                .Where(g => !todayGuests.Contains(g))
+                .ToList();
+            
+            while (todayGuests.Count < guestsPerDay && remainingGuests.Count > 0)
             {
-                var g = availableGuests[UnityEngine.Random.Range(0, availableGuests.Count)];
-                todayGuests.Add(g);
-                availableGuests.Remove(g);
+                var guest = remainingGuests[UnityEngine.Random.Range(0, remainingGuests.Count)];
+                todayGuests.Add(guest);
+                remainingGuests.Remove(guest);
             }
 
             Shuffle(todayGuests);
 
-            Debug.Log($"День {dayNumber}: Wanted={(todayWanted != null ? todayWanted.firstName : "нет")} Total={todayGuests.Count}");
+            foreach (var guest in todayGuests)
+            {
+                guest.LoadSprites();
+            }
+
+            var wantedCount = todayGuests.Count(g => !g.IsFake && IsInWantedList(g));
+            var fakeCount = todayGuests.Count(g => g.IsFake);
+            var wantedFakesCount = todayGuests.Count(g => g.IsFake && _allWantedGuests.Any(w => IsSimilarToWanted(g, w)));
+
+            Debug.Log($"=== Итоги дня {dayNumber} ===");
+            Debug.Log($"Всего гостей: {todayGuests.Count}");
+            Debug.Log($"Разыскиваемых: {wantedCount}");
+            Debug.Log($"Фейков всего: {fakeCount}");
+            Debug.Log($"Фейков разыскиваемых: {wantedFakesCount}");
+            Debug.Log($"Обычных фейков: {fakeCount - wantedFakesCount}");
+
+            foreach (var guest in todayGuests)
+            {
+                var type = guest.IsFake ? "ФЕЙК" : (IsInWantedList(guest) ? "РАЗЫСКИВАЕМЫЙ" : "ОБЫЧНЫЙ");
+                Debug.Log($"{type}: {guest.firstName} {guest.lastName} (isFake: {guest.IsFake})");
+            }
         }
 
-        private GuestData CreateFakeGuest(GuestData baseWanted, List<GuestData> allGuests)
+        private bool IsInWantedList(GuestData guest)
         {
-            var otherGuest = allGuests[UnityEngine.Random.Range(0, allGuests.Count)];
+            return wantedListGenerator.wantedGuests.Any(w => w.id == guest.id);
+        }
 
+        private GuestData CreateFakeForWanted(GuestData baseWanted)
+        {
             var fake = new GuestData
             {
                 id = Guid.NewGuid().ToString(),
-                firstName = otherGuest.firstName,
-                lastName = otherGuest.lastName,
-                age = ModifyAge(baseWanted.age),
-                gender = ModifyGender(baseWanted.gender),
+                firstName = AlterString(baseWanted.firstName, 1, 2),
+                lastName = AlterString(baseWanted.lastName, 1, 2),
+                age = baseWanted.age,
+                gender = baseWanted.gender,
                 fullBodySprite = baseWanted.fullBodySprite,
-                portraitSprite = baseWanted.portraitSprite
+                portraitSprite = baseWanted.portraitSprite,
+                IsFake = true
             };
 
-            fake.LoadedFullBody = baseWanted.LoadedFullBody;
-            fake.LoadedPortrait = baseWanted.LoadedPortrait;
+            if (UnityEngine.Random.value > 0.5f)
+            {
+                fake.age = ModifyAge(baseWanted.age);
+                Debug.Log($"Изменен возраст: {baseWanted.age} → {fake.age}");
+            }
 
-            fake.isFakeByName = false;
-            fake.ticket = new TicketData(fake);
+            if (UnityEngine.Random.value > 0.5f)
+            {
+                fake.gender = ModifyGender(baseWanted.gender);
+                Debug.Log($"Изменен пол: {baseWanted.gender} → {fake.gender}");
+            }
 
+            fake.LoadSprites();
             return fake;
         }
 
-        private string ModifyAge(string age)
+        private GuestData CreateFakeForRegularGuest(GuestData baseGuest)
         {
-            if (!int.TryParse(age, out int parsed)) parsed = UnityEngine.Random.Range(20, 50);
-            int delta = UnityEngine.Random.Range(-3, 4);
-            return Mathf.Clamp(parsed + delta, 18, 80).ToString();
+            var fake = new GuestData
+            {
+                id = Guid.NewGuid().ToString(),
+                firstName = AlterString(baseGuest.firstName, 1, 5),
+                lastName = AlterString(baseGuest.lastName, 1, 5),
+                age = ModifyAge(baseGuest.age),
+                gender = ModifyGender(baseGuest.gender),
+                fullBodySprite = baseGuest.fullBodySprite,
+                portraitSprite = baseGuest.portraitSprite,
+                IsFake = true
+            };
+
+            fake.LoadSprites();
+            return fake;
         }
 
-        private string ModifyGender(string gender)
+        private string AlterString(string input, int minChanges, int maxChanges)
         {
-            if (UnityEngine.Random.value < 0.2f)
+            if (string.IsNullOrEmpty(input) || input.Length < 2)
+                return GenerateRandomName(5);
+
+            var chars = input.ToCharArray();
+            var changes = UnityEngine.Random.Range(minChanges, maxChanges + 1);
+            changes = Math.Min(changes, chars.Length);
+
+            var changedIndexes = new HashSet<int>();
+            for (var i = 0; i < changes; i++)
             {
-                if (gender.ToLower().Contains("м")) return "Женский";
-                else return "Мужской";
+                int index;
+                do
+                {
+                    index = UnityEngine.Random.Range(0, chars.Length);
+                } while (changedIndexes.Contains(index));
+
+                chars[index] = GetRandomCyrillicChar();
+                changedIndexes.Add(index);
             }
-            return gender;
+
+            return new string(chars);
         }
 
-        private void Shuffle<T>(List<T> list)
+        private static bool IsSimilarToWanted(GuestData guest, GuestData wanted)
         {
-            for (int i = 0; i < list.Count; i++)
+            if (wanted == null) return false;
+
+            var firstNameSimilar = guest.firstName.Length >= 2 && wanted.firstName.Length >= 2 &&
+                                   guest.firstName[..2] == wanted.firstName[..2];
+            var lastNameSimilar = guest.lastName.Length >= 2 && wanted.lastName.Length >= 2 &&
+                                  guest.lastName[..2] == wanted.lastName[..2];
+
+            return firstNameSimilar || lastNameSimilar;
+        }
+
+        private static string GenerateRandomName(int length)
+        {
+            var chars = new char[length];
+            for (var i = 0; i < length; i++)
+                chars[i] = GetRandomCyrillicChar();
+            return new string(chars);
+        }
+
+        private static char GetRandomCyrillicChar()
+        {
+            return (char)('а' + UnityEngine.Random.Range(0, 32));
+        }
+
+        private static string ModifyAge(string age)
+        {
+            return int.TryParse(age, out var parsed) ? Mathf.Clamp(parsed + UnityEngine.Random.Range(-2, 3), 18, 80).ToString() : UnityEngine.Random.Range(20, 50).ToString();
+        }
+
+        private static string ModifyGender(string gender)
+        {
+            return gender switch
             {
-                int j = UnityEngine.Random.Range(i, list.Count);
+                "Муж" when UnityEngine.Random.value > 0.5f => "Жен",
+                "Жен" when UnityEngine.Random.value > 0.5f => "Муж",
+                _ => gender
+            };
+        }
+
+        private static void Shuffle<T>(List<T> list)
+        {
+            for (var i = 0; i < list.Count; i++)
+            {
+                var j = UnityEngine.Random.Range(i, list.Count);
                 (list[i], list[j]) = (list[j], list[i]);
             }
         }

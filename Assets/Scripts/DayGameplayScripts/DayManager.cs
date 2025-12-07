@@ -1,6 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace DayGameplayScripts
 {
@@ -11,48 +14,73 @@ namespace DayGameplayScripts
         public GameObject guestPrefab;
         public GuestTicketUI ticketUI;
         public ActionButtonsUI buttonsUI;
-        public TextMeshProUGUI warningText;
-        public TextMeshProUGUI endDayStatsText;
+        
         public TextMeshProUGUI dayText;
+        public TextMeshProUGUI dateText;
         public GameObject gameOverPanel;
         public GameObject endDayPanel;
+        public GameObject tiredPanel;
+        public GameObject startNightPanel;
         public GameObject arrestConfirmationPanel;
+        public WarningUIController warningUI;
+        public Button nextDayButton;
+        
+        public TextMeshProUGUI visitorsText;
+        public TextMeshProUGUI arrestedText;
+        public TextMeshProUGUI cluesText;
+        public TextMeshProUGUI warningBonusText;
+        public TextMeshProUGUI totalWarningsText;
+        public TextMeshProUGUI endShiftWarningsText;
 
         private int _currentGuestIndex;
         private int _currentDay = 1;
-        private const int _totalDays = 5;
+        private const int TotalDays = 5;
 
-        private int _correctCountDay;       // верные решения за текущий день
-        private int _wrongCountTotal;       // суммарные ошибки (только неверное отклонение)
-        private int _warnings;              // предупреждения за неверный арест
-        private bool _gameOver;
+        private int _warnings;
+        private int _visitorsToday;
+        private int _arrestedWantedToday;
+        private int _warningBonusPoints;
 
         private GuestController _currentGuestController;
         private GuestData _currentGuest;
         private TicketData _currentTicket;
 
-        public HashSet<string> arrestedGuestIds = new HashSet<string>();
+        private readonly HashSet<string> _arrestedGuestIds = new();
+        private readonly List<GuestData> _missedWantedToday = new();
 
         private void Start()
         {
             buttonsUI.Init(this);
-            generator.dayManager = this; // передаём ссылку генератору
-            StartDay(_currentDay);
-        }
+            generator.dayManager = this;
 
+            // Если данные ночной смены есть — показать сводку
+            if (NightShiftPayload.Instance != null && NightShiftPayload.Instance.foundCluesNight > 0)
+            {
+                ShowDailySummary();
+            }
+            else
+            {
+                StartDay(_currentDay);
+            }
+        }
+        
         private void StartDay(int dayNumber)
         {
-            Debug.Log($"▶ Начало дня {dayNumber}");
+            UpdateDateUI();
 
             _currentGuestIndex = 0;
-            _correctCountDay = 0; // сброс верных решений за день
-            _gameOver = false;
+            _warnings = 0;
+            _visitorsToday = 0;
+            _arrestedWantedToday = 0;
+            _warningBonusPoints = 0;
+            _missedWantedToday.Clear();
 
             endDayPanel.SetActive(false);
             gameOverPanel.SetActive(false);
+            nextDayButton.gameObject.SetActive(false);
 
             if (dayText != null)
-                dayText.text = $"День {dayNumber}/{_totalDays}";
+                dayText.text = $"День {dayNumber}/{TotalDays} завершён!";
 
             generator.GenerateGuestsForDay(dayNumber);
             SpawnNextGuest();
@@ -69,6 +97,7 @@ namespace DayGameplayScripts
 
             var guestData = generator.todayGuests[_currentGuestIndex];
             var guestObj = Instantiate(guestPrefab, guestSpawnParent);
+            guestObj.transform.SetSiblingIndex(1);
             var guestController = guestObj.GetComponent<GuestController>();
 
             buttonsUI.SetButtonsInteractable(false);
@@ -80,22 +109,21 @@ namespace DayGameplayScripts
             {
                 _currentGuest = gc.guestData;
 
-                if (_currentGuest.ticket == null)
-                    _currentGuest.ticket = new TicketData(_currentGuest);
+                _currentGuest.Ticket ??= new TicketData(_currentGuest);
 
-                _currentTicket = _currentGuest.ticket;
+                _currentTicket = _currentGuest.Ticket;
 
                 ticketUI.Show(_currentTicket);
-
                 buttonsUI.SetButtonsInteractable(true);
             };
         }
 
         public void OnAllowClick() => EvaluateDecision(GuestDecision.Allow);
         public void OnDenyClick() => EvaluateDecision(GuestDecision.Deny);
+
         public void OnArrestClick()
         {
-            if (_gameOver || _currentGuest == null || _currentTicket == null) return;
+            if (_currentGuest == null || _currentTicket == null) return;
             arrestConfirmationPanel.SetActive(true);
         }
 
@@ -112,64 +140,52 @@ namespace DayGameplayScripts
 
         private void EvaluateDecision(GuestDecision decision)
         {
-            if (_gameOver || _currentGuest == null || _currentTicket == null) return;
+            if (_currentGuest == null || _currentTicket == null) return;
 
-            bool isWanted = generator.wantedListGenerator.wantedGuests.Contains(_currentGuest);
-            bool correct = false;
+            var isWanted = generator.wantedListGenerator.wantedGuests.Contains(_currentGuest);
+            var correct = false;
+            var isExpired = _currentTicket.validUntilDay < _currentDay;
+
+            _visitorsToday++;
 
             switch (decision)
             {
                 case GuestDecision.Allow:
-                    if (!isWanted && !_currentTicket.isFake) correct = true;
+                    if (!isWanted && !_currentTicket.isFake && !isExpired)
+                        correct = true;
+                    else
+                    {
+                        _warnings++;
+                        if (isWanted) _missedWantedToday.Add(_currentGuest);
+                    }
                     break;
 
                 case GuestDecision.Deny:
-                    if (!isWanted && _currentTicket.isFake) correct = true;
+                    if (_currentTicket.isFake || isExpired)
+                        correct = true;
+                    else
+                        _warnings++;
                     break;
 
                 case GuestDecision.Arrest:
                     if (isWanted)
                     {
                         correct = true;
-                        arrestedGuestIds.Add(_currentGuest.id);
+                        _arrestedGuestIds.Add(_currentGuest.id);
+                        _arrestedWantedToday++;
+                        _warnings = Mathf.Max(0, _warnings - 2);
+                        _warningBonusPoints += 2;
                     }
                     else
-                    {
-                        // неверный арест → предупреждение
                         _warnings++;
-                        UpdateWarningUI();
-                        if (_warnings >= 5)
-                        {
-                            GameOver();
-                            return;
-                        }
-                    }
                     break;
             }
 
-            // Если решение верное → верные решения за день
-            if (correct)
+            if (correct && decision != GuestDecision.Arrest)
             {
-                _correctCountDay++;
-            }
-            else
-            {
-                // Ошибка учитывается **только для неверного отклонения** (Allow/Deny)
-                if (decision == GuestDecision.Allow || decision == GuestDecision.Deny)
-                {
-                    _wrongCountTotal++;
-                    if (_wrongCountTotal >= 5)
-                    {
-                        GameOver();
-                        return;
-                    }
-                }
             }
 
-            Debug.Log(correct
-                ? $"Решение верное: {decision} для {_currentGuest.firstName} {_currentGuest.lastName}"
-                : $"Решение неверное: {decision} для {_currentGuest.firstName} {_currentGuest.lastName}");
-
+            UpdateWarningUI();
             ticketUI.Hide();
 
             _currentGuestController.Despawn(() =>
@@ -179,50 +195,101 @@ namespace DayGameplayScripts
             });
         }
 
+        private void UpdateDateUI()
+        {
+            if (dateText != null)
+                dateText.text = $"{_currentDay}";
+        }
+
         private void UpdateWarningUI()
         {
-            warningText.text = $"⚠ Предупреждения: {_warnings}/5";
+            warningUI.SetWarnings(_warnings);
         }
 
         private void EndDay()
         {
             Debug.Log($"День {_currentDay} завершён!");
+
+            if (NightShiftPayload.Instance != null)
+            {
+                var payload = NightShiftPayload.Instance;
+
+                payload.skippedWanted = new List<GuestData>(_missedWantedToday);
+                payload.visitorsToday = _visitorsToday;
+                payload.arrestedWantedToday = _arrestedWantedToday;
+                payload.warningsToday = _warnings;
+                payload.warningBonusPoints = _warningBonusPoints;
+                payload.foundCluesNight = 0;
+                
+
+                if (_missedWantedToday.Count == 0)
+                {
+                    var wantedGuests = generator.wantedListGenerator.wantedGuests;
+                    if (wantedGuests.Count > 0)
+                    {
+                        GuestData randomExtraWanted;
+                        do
+                        {
+                            randomExtraWanted = wantedGuests[Random.Range(0, wantedGuests.Count)];
+                        } while (_arrestedGuestIds.Contains(randomExtraWanted.id)); // чтобы не добавлять уже арестованного
+
+                        payload.extraWantedWithClues = randomExtraWanted;
+                    }
+                    
+                    StartCoroutine(ShowPanelsAndLoadScene(showTired: true));
+                    return;
+                }
+                
+                payload.extraWantedWithClues = null;
+            }
+            StartCoroutine(ShowPanelsAndLoadScene(showTired: false));
+        }
+
+        private void ShowDailySummary()
+        {
+            var payload = NightShiftPayload.Instance;
+            if (payload == null) return;
+
             endDayPanel.SetActive(true);
 
-            endDayStatsText.text =
-                $"День {_currentDay} окончен!\n" +
-                $"Верных решений: {_correctCountDay}\n" +
-                $"Ошибок (неверное отклонение): {_wrongCountTotal}\n" +
-                $"⚠ Предупреждений (неверный арест): {_warnings}/5";
+            visitorsText.text = $"Посетителей\n{payload.visitorsToday}";
+            arrestedText.text = $"Сущностей\n{payload.arrestedWantedToday}";
+            cluesText.text = $"Улик\n{payload.foundCluesNight}";
+            warningBonusText.text = $"Получено:\n{payload.warningBonusPoints}";
+            totalWarningsText.text = $"Снято:\n{payload.warningsToday + payload.warningBonusPoints}";
+            endShiftWarningsText.text = $"Итог:\n{payload.warningsToday}";
 
-            _currentDay++;
-            if (_currentDay <= _totalDays)
-                Invoke(nameof(StartNextDay), 3f);
-            else
-                ShowFinalResults();
-        }
-
-        private void StartNextDay()
-        {
-            endDayPanel.SetActive(false);
-            StartDay(_currentDay);
-        }
-
-        private void ShowFinalResults()
-        {
-            endDayStatsText.text += "\n\nИгра завершена! Все дни отработаны.";
-        }
-
-        private void GameOver()
-        {
-            _gameOver = true;
-            gameOverPanel.SetActive(true);
-            endDayStatsText.text = "Игра окончена. Достигнут лимит ошибок или предупреждений.";
+            nextDayButton.gameObject.SetActive(true);
+            nextDayButton.onClick.RemoveAllListeners();
+            nextDayButton.onClick.AddListener(() =>
+            {
+                nextDayButton.gameObject.SetActive(false);
+                _currentDay++;
+                if (_currentDay <= TotalDays)
+                    StartDay(_currentDay);
+                else
+                    Debug.Log("Игра завершена: все дни пройдены!");
+            });
         }
 
         public bool IsGuestArrested(GuestData guest)
         {
-            return arrestedGuestIds.Contains(guest.id);
+            return _arrestedGuestIds.Contains(guest.id);
+        }
+        private IEnumerator ShowPanelsAndLoadScene(bool showTired)
+        {
+            if (showTired)
+            {
+                tiredPanel.SetActive(true);     
+                yield return new WaitForSeconds(3f);
+                tiredPanel.SetActive(false);
+            }
+         
+            startNightPanel.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            SceneManager.LoadScene("NightScene");
         }
     }
+    
+    
 }

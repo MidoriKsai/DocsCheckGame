@@ -8,6 +8,7 @@ namespace DayGameplayScripts
     {
         public Image portraitImage;
         public TextMeshProUGUI nameText;
+        public TextMeshProUGUI lastNameText;
         public TextMeshProUGUI ageText;
         public TextMeshProUGUI genderText;
         public TextMeshProUGUI dateText;
@@ -21,7 +22,8 @@ namespace DayGameplayScripts
 
             gameObject.SetActive(true);
 
-            nameText.text = $"{_ticket.firstName} {_ticket.lastName}";
+            nameText.text = $"И: {_ticket.firstName}";
+            lastNameText.text = $"Ф: {_ticket.lastName}";
             ageText.text = $"Возраст: {_ticket.age}";
             genderText.text = $"Пол: {_ticket.gender}";
             dateText.text = $"Действителен до: {_ticket.validUntil}";
