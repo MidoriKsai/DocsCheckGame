@@ -1,41 +1,34 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraChanger : MonoBehaviour
 {
-    public GameObject[] camerasButtons;
-    private int currentCameraIndex = 0;
-    public TextMeshProUGUI cameraNumber;
+    public GameObject[] screens;
+    public Button[] buttons;
     
-    public GameObject[] cameras;
+    public GuestsItems itemController;
+
     void Start()
     {
-        ChangeCameraView();
-        camerasButtons.onClick.AddListener(ChangeCamera);
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            int index = i;
+            buttons[i].onClick.AddListener(() =>
+            {
+                ShowScreen(index);
+                if (itemController != null)
+                    itemController.OnCameraChanged();
+            });
+        }
+
+        ShowScreen(0);
     }
 
-    void ChangeCamera()
+    void ShowScreen(int index)
     {
-        cameras[currentCameraIndex].SetActive(false);
-        currentCameraIndex ++;
-        if (currentCameraIndex >= cameras.Length)
-            currentCameraIndex = 0;
-        ChangeCameraView();
-    }
-
-    void ChangePreviousButton()
-    {
-        cameras[currentCameraIndex].SetActive(false);
-        currentCameraIndex --;
-        if (currentCameraIndex < 0)
-            currentCameraIndex = cameras.Length - 1;
-        ChangeCameraView();
-    }
-    
-    void ChangeCameraView()
-    {
-        cameras[currentCameraIndex].SetActive(true);
-        cameraNumber.text = (currentCameraIndex + 1).ToString();
+        for (int i = 0; i < screens.Length; i++)
+        {
+            screens[i].SetActive(i == index);
+        }
     }
 }
