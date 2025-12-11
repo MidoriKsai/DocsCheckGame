@@ -8,6 +8,7 @@ namespace DayGameplayScripts
     {
         public Image portraitImage;
         public TextMeshProUGUI nameText;
+        public TextMeshProUGUI lastNameText;
         public TextMeshProUGUI ageText;
         public TextMeshProUGUI genderText;
         public Button closeButton;
@@ -19,10 +20,10 @@ namespace DayGameplayScripts
         public void Show(GuestData wanted)
         {
             gameObject.SetActive(true);
-            nameText.text = $"{wanted.firstName} {wanted.lastName}";
+            nameText.text = $"И: {wanted.firstName}";
+            lastNameText.text = $"Ф: {wanted.lastName}";
             ageText.text = $"Возраст: {wanted.age}";
             genderText.text = $"Пол: {wanted.gender}";
-            Debug.Log("Подробная информация отображена");
             if (portraitImage && wanted.LoadedPortrait != null)
                 portraitImage.sprite = wanted.LoadedPortrait;
         }

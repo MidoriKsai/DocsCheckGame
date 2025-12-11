@@ -5,29 +5,41 @@
     "lastName": "Смит",
     "age": "34",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest1",
-    "portraitSprite": "Guests/guest1",
-    "thingSprite": ""
+    "fullBodySprite": "guest1",
+    "portraitSprite": "guest1",
+    "clueSprites": [
+      "guest1_clue1",
+      "guest1_clue2",
+      "guest1_clue3"
+    ]
   },
   {
     "id": "guest2",
-    "firstName": "Мэри",
-    "lastName": "Джонсон",
-    "age": "28",
-    "gender": "Жен",
-    "fullBodySprite": "Guests/guest2",
-    "portraitSprite": "Guests/guest2",
-    "thingSprite": ""
-  },
-  {
-    "id": "guest3",
     "firstName": "Роберт",
     "lastName": "Уильямс",
     "age": "41",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest3",
-    "portraitSprite": "Guests/guest3",
-    "thingSprite": ""
+    "fullBodySprite": "guest2",
+    "portraitSprite": "guest2",
+    "clueSprites": [
+      "guest2_clue1",
+      "guest2_clue2",
+      "guest2_clue3"
+    ]
+  },
+  {
+    "id": "guest3",
+    "firstName": "Мэри",
+    "lastName": "Джонсон",
+    "age": "28",
+    "gender": "Жен",
+    "fullBodySprite": "guest3",
+    "portraitSprite": "guest3",
+    "clueSprites": [
+      "guest3_clue1",
+      "guest3_clue2",
+      "guest3_clue3"
+    ]
   },
   {
     "id": "guest4",
@@ -35,9 +47,13 @@
     "lastName": "Браун",
     "age": "19",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest4",
-    "portraitSprite": "Guests/guest4",
-    "thingSprite": ""
+    "fullBodySprite": "guest4",
+    "portraitSprite": "guest4",
+    "clueSprites": [
+      "guest4_clue1",
+      "guest4_clue2",
+      "guest4_clue3"
+    ]
   },
   {
     "id": "guest5",
@@ -45,9 +61,13 @@
     "lastName": "Иванов",
     "age": "57",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest5",
-    "portraitSprite": "Guests/guest5",
-    "thingSprite": ""
+    "fullBodySprite": "guest5",
+    "portraitSprite": "guest5",
+    "clueSprites": [
+      "guest5_clue1",
+      "guest5_clue2",
+      "guest5_clue3"
+    ]
   },
   {
     "id": "guest6",
@@ -55,9 +75,13 @@
     "lastName": "Гарсия",
     "age": "52",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest6",
-    "portraitSprite": "Guests/guest6",
-    "thingSprite": ""
+    "fullBodySprite": "guest6",
+    "portraitSprite": "guest6",
+    "clueSprites": [
+      "guest6_clue1",
+      "guest6_clue2",
+      "guest6_clue3"
+    ]
   },
   {
     "id": "guest7",
@@ -65,9 +89,13 @@
     "lastName": "Миллер",
     "age": "12",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest7",
-    "portraitSprite": "Guests/guest7",
-    "thingSprite": ""
+    "fullBodySprite": "guest7",
+    "portraitSprite": "guest7",
+    "clueSprites": [
+      "guest7_clue1",
+      "guest7_clue2",
+      "guest7_clue3"
+    ]
   },
   {
     "id": "guest8",
@@ -75,9 +103,13 @@
     "lastName": "Дэвис",
     "age": "45",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest8",
-    "portraitSprite": "Guests/guest8",
-    "thingSprite": ""
+    "fullBodySprite": "guest8",
+    "portraitSprite": "guest8",
+    "clueSprites": [
+      "guest8_clue1",
+      "guest8_clue2",
+      "guest8_clue3"
+    ]
   },
   {
     "id": "guest9",
@@ -85,9 +117,13 @@
     "lastName": "Родригес",
     "age": "31",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest9",
-    "portraitSprite": "Guests/guest9",
-    "thingSprite": ""
+    "fullBodySprite": "guest9",
+    "portraitSprite": "guest9",
+    "clueSprites": [
+      "guest9_clue1",
+      "guest9_clue2",
+      "guest9_clue3"
+    ]
   },
   {
     "id": "guest10",
@@ -95,9 +131,13 @@
     "lastName": "Мартинес",
     "age": "24",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest10",
-    "portraitSprite": "Guests/guest10",
-    "thingSprite": ""
+    "fullBodySprite": "guest10",
+    "portraitSprite": "guest10",
+    "clueSprites": [
+      "guest10_clue1",
+      "guest10_clue2",
+      "guest10_clue3"
+    ]
   },
   {
     "id": "guest11",
@@ -105,9 +145,13 @@
     "lastName": "Эрнандес",
     "age": "38",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest11",
-    "portraitSprite": "Guests/guest11",
-    "thingSprite": ""
+    "fullBodySprite": "guest11",
+    "portraitSprite": "guest11",
+    "clueSprites": [
+      "guest11_clue1",
+      "guest11_clue2",
+      "guest11_clue3"
+    ]
   },
   {
     "id": "guest12",
@@ -115,9 +159,13 @@
     "lastName": "Петрова",
     "age": "36",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest12",
-    "portraitSprite": "Guests/guest12",
-    "thingSprite": ""
+    "fullBodySprite": "guest12",
+    "portraitSprite": "guest12",
+    "clueSprites": [
+      "guest12_clue1",
+      "guest12_clue2",
+      "guest12_clue3"
+    ]
   },
   {
     "id": "guest13",
@@ -125,9 +173,13 @@
     "lastName": "Гонсалес",
     "age": "29",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest13",
-    "portraitSprite": "Guests/guest13",
-    "thingSprite": ""
+    "fullBodySprite": "guest13",
+    "portraitSprite": "guest13",
+    "clueSprites": [
+      "guest13_clue1",
+      "guest13_clue2",
+      "guest13_clue3"
+    ]
   },
   {
     "id": "guest14",
@@ -135,9 +187,13 @@
     "lastName": "Уилсон",
     "age": "15",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest14",
-    "portraitSprite": "Guests/guest14",
-    "thingSprite": ""
+    "fullBodySprite": "guest14",
+    "portraitSprite": "guest14",
+    "clueSprites": [
+      "guest14_clue1",
+      "guest14_clue2",
+      "guest14_clue3"
+    ]
   },
   {
     "id": "guest15",
@@ -145,9 +201,13 @@
     "lastName": "Андерсон",
     "age": "14",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest15",
-    "portraitSprite": "Guests/guest15",
-    "thingSprite": ""
+    "fullBodySprite": "guest15",
+    "portraitSprite": "guest15",
+    "clueSprites": [
+      "guest15_clue1",
+      "guest15_clue2",
+      "guest15_clue3"
+    ]
   },
   {
     "id": "guest16",
@@ -155,9 +215,13 @@
     "lastName": "Томас",
     "age": "33",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest16",
-    "portraitSprite": "Guests/guest16",
-    "thingSprite": ""
+    "fullBodySprite": "guest16",
+    "portraitSprite": "guest16",
+    "clueSprites": [
+      "guest16_clue1",
+      "guest16_clue2",
+      "guest16_clue3"
+    ]
   },
   {
     "id": "guest17",
@@ -165,9 +229,13 @@
     "lastName": "Тейлор",
     "age": "48",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest17",
-    "portraitSprite": "Guests/guest17",
-    "thingSprite": ""
+    "fullBodySprite": "guest17",
+    "portraitSprite": "guest17",
+    "clueSprites": [
+      "guest17_clue1",
+      "guest17_clue2",
+      "guest17_clue3"
+    ]
   },
   {
     "id": "guest18",
@@ -175,9 +243,13 @@
     "lastName": "Мур",
     "age": "26",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest18",
-    "portraitSprite": "Guests/guest18",
-    "thingSprite": ""
+    "fullBodySprite": "guest18",
+    "portraitSprite": "guest18",
+    "clueSprites": [
+      "guest18_clue1",
+      "guest18_clue2",
+      "guest18_clue3"
+    ]
   },
   {
     "id": "guest19",
@@ -185,9 +257,13 @@
     "lastName": "Попов",
     "age": "62",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest19",
-    "portraitSprite": "Guests/guest19",
-    "thingSprite": ""
+    "fullBodySprite": "guest19",
+    "portraitSprite": "guest19",
+    "clueSprites": [
+      "guest19_clue1",
+      "guest19_clue2",
+      "guest19_clue3"
+    ]
   },
   {
     "id": "guest20",
@@ -195,9 +271,13 @@
     "lastName": "Мартин",
     "age": "40",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest20",
-    "portraitSprite": "Guests/guest20",
-    "thingSprite": ""
+    "fullBodySprite": "guest20",
+    "portraitSprite": "guest20",
+    "clueSprites": [
+      "guest20_clue1",
+      "guest20_clue2",
+      "guest20_clue3"
+    ]
   },
   {
     "id": "guest21",
@@ -205,9 +285,13 @@
     "lastName": "Ли",
     "age": "12",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest21",
-    "portraitSprite": "Guests/guest21",
-    "thingSprite": ""
+    "fullBodySprite": "guest21",
+    "portraitSprite": "guest21",
+    "clueSprites": [
+      "guest21_clue1",
+      "guest21_clue2",
+      "guest21_clue3"
+    ]
   },
   {
     "id": "guest22",
@@ -215,9 +299,13 @@
     "lastName": "Перес",
     "age": "57",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest22",
-    "portraitSprite": "Guests/guest22",
-    "thingSprite": ""
+    "fullBodySprite": "guest22",
+    "portraitSprite": "guest22",
+    "clueSprites": [
+      "guest22_clue1",
+      "guest22_clue2",
+      "guest22_clue3"
+    ]
   },
   {
     "id": "guest23",
@@ -225,9 +313,13 @@
     "lastName": "Томпсон",
     "age": "35",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest23",
-    "portraitSprite": "Guests/guest23",
-    "thingSprite": ""
+    "fullBodySprite": "guest23",
+    "portraitSprite": "guest23",
+    "clueSprites": [
+      "guest23_clue1",
+      "guest23_clue2",
+      "guest23_clue3"
+    ]
   },
   {
     "id": "guest24",
@@ -235,9 +327,13 @@
     "lastName": "Уайт",
     "age": "22",
     "gender": "Жен",
-    "fullBodySprite": "Guests/guest24",
-    "portraitSprite": "Guests/guest24",
-    "thingSprite": ""
+    "fullBodySprite": "guest24",
+    "portraitSprite": "guest24",
+    "clueSprites": [
+      "guest24_clue1",
+      "guest24_clue2",
+      "guest24_clue3"
+    ]
   },
   {
     "id": "guest25",
@@ -245,8 +341,12 @@
     "lastName": "Харрис",
     "age": "17",
     "gender": "Муж",
-    "fullBodySprite": "Guests/guest25",
-    "portraitSprite": "Guests/guest25",
-    "thingSprite": ""
+    "fullBodySprite": "guest25",
+    "portraitSprite": "guest25",
+    "clueSprites": [
+      "guest25_clue1",
+      "guest25_clue2",
+      "guest25_clue3"
+    ]
   }
 ]
