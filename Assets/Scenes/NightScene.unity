@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 34523584}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 50773497}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 54719992}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55797940}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65786848}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 66797390}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 113751249}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 193871348}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 209047714}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228958063}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,7 +611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 245052536}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Anomaly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295151728}
   - component: {fileID: 295151729}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 298352685}
   - component: {fileID: 298352686}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,8 +752,8 @@ Transform:
   m_GameObject: {fileID: 298352684}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.9098, y: 5.8823, z: 0}
-  m_LocalScale: {x: 88.38222, y: 101.72613, z: 1}
+  m_LocalPosition: {x: 2.1129, y: -4.4636, z: 0}
+  m_LocalScale: {x: 216.27863, y: 248.03593, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1876731595}
@@ -826,7 +826,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 311430002}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +857,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 326995135}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,7 +1008,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 374090790}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1039,7 +1039,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 380580076}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,7 +1070,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 449950559}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1338,7 +1338,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 509243944}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1372,7 +1372,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 541758664}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1403,7 +1403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 582011912}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1437,7 +1437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 593719143}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1468,7 +1468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 599024770}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1499,7 +1499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 619542145}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1530,7 +1530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 626932012}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1561,7 +1561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 655214485}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1715,7 +1715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 663406021}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1746,7 +1746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 676386098}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1777,7 +1777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 710120521}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Anomaly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1812,7 +1812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 739785384}
   - component: {fileID: 739785385}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1828,8 +1828,8 @@ Transform:
   m_GameObject: {fileID: 739785383}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.529, y: 6.3984, z: 0}
-  m_LocalScale: {x: 88.259315, y: 97.00828, z: 1}
+  m_LocalPosition: {x: 2.781, y: -6.06, z: 0}
+  m_LocalScale: {x: 216.47073, y: 238.36775, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1158924501}
@@ -1902,7 +1902,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742840240}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2053,7 +2053,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 771499916}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2205,7 +2205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 794691426}
   - component: {fileID: 794691427}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2221,8 +2221,13 @@ Transform:
   m_GameObject: {fileID: 794691425}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+<<<<<<< Updated upstream
   m_LocalPosition: {x: -7.0517, y: 5.1758, z: 0}
   m_LocalScale: {x: 100.83745, y: 112.498215, z: 1}
+=======
+  m_LocalPosition: {x: 13, y: 7, z: 0}
+  m_LocalScale: {x: 248.11438, y: 274.796, z: 1}
+>>>>>>> Stashed changes
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 245052536}
@@ -2298,6 +2303,7 @@ GameObject:
   - component: {fileID: 823054524}
   - component: {fileID: 823054523}
   - component: {fileID: 823054522}
+  - component: {fileID: 823054525}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -2367,7 +2373,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 823054523}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 823054525}
+        m_TargetAssemblyTypeName: CameraChanger, Assembly-CSharp
+        m_MethodName: ChangeCameraView
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &823054523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2406,6 +2424,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823054520}
   m_CullTransparentMesh: 1
+--- !u!114 &823054525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823054520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d78a5b9d9abe4144b2bd3d92fa9f6e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraChanger
+  screens: []
+  buttons: []
 --- !u!1 &886132091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,7 +2447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886132092}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2566,7 +2598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917780645}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2597,7 +2629,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 920126596}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Anomaly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2632,7 +2664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 954934115}
   - component: {fileID: 954934116}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2648,8 +2680,8 @@ Transform:
   m_GameObject: {fileID: 954934114}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.8384, y: 7.4892, z: 0}
-  m_LocalScale: {x: 88.07748, y: 109.23028, z: 1}
+  m_LocalPosition: {x: 12.3396, y: -8.681252, z: 0}
+  m_LocalScale: {x: 215.29375, y: 267.82516, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 710120521}
@@ -2727,7 +2759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 974358290}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2761,7 +2793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1005424217}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2797,6 +2829,7 @@ GameObject:
   - component: {fileID: 1066200674}
   - component: {fileID: 1066200676}
   - component: {fileID: 1066200675}
+  - component: {fileID: 1066200677}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -2820,8 +2853,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40, y: 0}
-  m_SizeDelta: {x: 650, y: 404}
+  m_AnchoredPosition: {x: -75, y: 8}
+  m_SizeDelta: {x: 1596.0829, y: 992.0313}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1066200675
 MonoBehaviour:
@@ -2861,6 +2894,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066200673}
   m_CullTransparentMesh: 0
+--- !u!212 &1066200677
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066200673}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1067725322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2870,7 +2961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1067725323}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2901,7 +2992,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1134915274}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2932,7 +3023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1158924501}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Anomaly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2967,7 +3058,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1167832000}
   - component: {fileID: 1167832001}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2983,8 +3074,8 @@ Transform:
   m_GameObject: {fileID: 1167831999}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.7, y: 5.1, z: 0}
-  m_LocalScale: {x: 88.23508, y: 97.23874, z: 1}
+  m_LocalPosition: {x: 16.9927, y: 4.9854, z: 0}
+  m_LocalScale: {x: 215.25267, y: 238.008, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1854054231}
@@ -3057,7 +3148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1235035324}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3088,7 +3179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1250232583}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3243,7 +3334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1311983246}
   - component: {fileID: 1311983245}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3317,8 +3408,8 @@ Transform:
   m_GameObject: {fileID: 1311983244}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.26, y: 7.0665, z: 0}
-  m_LocalScale: {x: 88.23702, y: 83.28958, z: 1}
+  m_LocalPosition: {x: 1.5386, y: -5.8044, z: 0}
+  m_LocalScale: {x: 215.24065, y: 202.47781, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 295151728}
@@ -3335,7 +3426,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1317027062}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3366,7 +3457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1324448502}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3473,7 +3564,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1367813436}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3504,7 +3595,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1374244623}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3538,7 +3629,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1411580597}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3572,7 +3663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1445496891}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3603,7 +3694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1461861937}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3637,9 +3728,14 @@ GameObject:
   - component: {fileID: 1477958444}
   - component: {fileID: 1477958443}
   - component: {fileID: 1477958442}
+<<<<<<< Updated upstream
   - component: {fileID: 1477958446}
   - component: {fileID: 1477958447}
   m_Layer: 5
+=======
+  - component: {fileID: 1477958447}
+  m_Layer: 0
+>>>>>>> Stashed changes
   m_Name: Canvas
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -3662,7 +3758,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &1477958443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3678,7 +3774,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -3695,8 +3791,8 @@ Canvas:
   m_GameObject: {fileID: 1477958440}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1823454931}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3721,6 +3817,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< Updated upstream
   - {fileID: 1700110688}
   - {fileID: 1066200674}
   - {fileID: 1492714637}
@@ -3729,6 +3826,11 @@ RectTransform:
   - {fileID: 2038335046}
   - {fileID: 239402366}
   - {fileID: 1672367398}
+=======
+  - {fileID: 1492714637}
+  - {fileID: 1700110688}
+  - {fileID: 1066200674}
+>>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3736,7 +3838,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1477958446
+--- !u!114 &1477958447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3747,6 +3849,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 967e6611861553a4ab740792a613b6da, type: 3}
   m_Name: 
+<<<<<<< Updated upstream
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
   timeText: {fileID: 1631149142}
   passed24seconds:
@@ -3774,6 +3877,25 @@ MonoBehaviour:
   panel: {fileID: 1672367398}
   itemImage: {fileID: 773404879}
   journal: {fileID: 239402369}
+=======
+  m_EditorClassIdentifier: Assembly-CSharp::CameraChanger
+  screens:
+  - {fileID: 1167831999}
+  - {fileID: 794691425}
+  - {fileID: 298352684}
+  - {fileID: 1311983244}
+  - {fileID: 739785383}
+  - {fileID: 2112506759}
+  - {fileID: 954934114}
+  buttons:
+  - {fileID: 823054522}
+  - {fileID: 2121520890}
+  - {fileID: 1570051631}
+  - {fileID: 478156630}
+  - {fileID: 330007335}
+  - {fileID: 896714475}
+  - {fileID: 1277275841}
+>>>>>>> Stashed changes
 --- !u!1 &1492714636
 GameObject:
   m_ObjectHideFlags: 0
@@ -3786,6 +3908,10 @@ GameObject:
   - component: {fileID: 1492714640}
   - component: {fileID: 1492714639}
   - component: {fileID: 1492714638}
+<<<<<<< Updated upstream
+=======
+  - component: {fileID: 1492714642}
+>>>>>>> Stashed changes
   - component: {fileID: 1492714641}
   m_Layer: 5
   m_Name: ButtonsGrid
@@ -3819,8 +3945,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 722, y: 9}
-  m_SizeDelta: {x: -752, y: -18.000004}
+  m_AnchoredPosition: {x: 1737.7681, y: 9}
+  m_SizeDelta: {x: -1814.1031, y: -18}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1492714638
 MonoBehaviour:
@@ -3842,8 +3968,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 42, y: 42}
-  m_Spacing: {x: 0, y: 6}
+  m_CellSize: {x: 110, y: 110}
+  m_Spacing: {x: 0, y: 9}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &1492714639
@@ -3893,12 +4019,64 @@ MonoBehaviour:
   m_GameObject: {fileID: 1492714636}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: 68476fec040d4e847bdb1e34d73feb35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonManager
   pauseButton: {fileID: 757619580}
   journalButton: {fileID: 657789480}
   journalPanel: {fileID: 239402365}
+=======
+  m_Script: {fileID: 11500000, guid: 3d78a5b9d9abe4144b2bd3d92fa9f6e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraChanger
+  screens: []
+  buttons: []
+--- !u!114 &1492714642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492714636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1492714639}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+>>>>>>> Stashed changes
 --- !u!1 &1493233443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,7 +4086,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493233444}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3939,7 +4117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1500734218}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3970,7 +4148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1508274713}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Anomaly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4004,7 +4182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1538889164}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraDistruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4294,7 +4472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1574504524}
   - component: {fileID: 1574504525}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraDistruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4383,7 +4561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1615488083}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4626,7 +4804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1688713201}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4688,7 +4866,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -35.4, y: -6.5}
+  m_AnchoredPosition: {x: -94, y: 4}
   m_SizeDelta: {x: 102.5529, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1700110689
@@ -4729,7 +4907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1713426508}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4760,7 +4938,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1741767247}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4794,7 +4972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1810910381}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4825,7 +5003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1820544778}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraDistruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4883,7 +5061,11 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
+<<<<<<< Updated upstream
   m_BackGroundColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0}
+=======
+  m_BackGroundColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+>>>>>>> Stashed changes
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4908,7 +5090,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 540.90344
+  orthographic size: 556.2402
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4948,7 +5130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1844631324}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4979,7 +5161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1854054231}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Anomaly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5013,7 +5195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1869445854}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraDistruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5044,7 +5226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1876731595}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Anomaly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5078,7 +5260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1885215711}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5323,7 +5505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1930606062}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraDistruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5354,7 +5536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1961084551}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoint_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5385,7 +5567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1974104023}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraDistruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5416,7 +5598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2014104970}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5450,7 +5632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2017116274}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CameraDistruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5481,7 +5663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2034279143}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5602,7 +5784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2056492752}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LightPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5636,7 +5818,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2079959169}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FogSpawnPoint_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5668,7 +5850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2112506760}
   - component: {fileID: 2112506761}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Camera6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5684,8 +5866,8 @@ Transform:
   m_GameObject: {fileID: 2112506759}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.1481, y: 5.8823, z: 0}
-  m_LocalScale: {x: 90.205956, y: 84.05387, z: 1}
+  m_LocalPosition: {x: -2.6233, y: -9.5627, z: 0}
+  m_LocalScale: {x: 220.49696, y: 204.81685, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 920126596}
@@ -5928,6 +6110,14 @@ PrefabInstance:
     - target: {fileID: 8949363429945730068, guid: 2cadf5b27aaf7bf4ea7ee050938901ea, type: 3}
       propertyPath: m_Name
       value: Square (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949363429945730068, guid: 2cadf5b27aaf7bf4ea7ee050938901ea, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8949363429945730068, guid: 2cadf5b27aaf7bf4ea7ee050938901ea, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
