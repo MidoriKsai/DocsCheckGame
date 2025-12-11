@@ -2221,13 +2221,8 @@ Transform:
   m_GameObject: {fileID: 794691425}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-<<<<<<< Updated upstream
-  m_LocalPosition: {x: -7.0517, y: 5.1758, z: 0}
-  m_LocalScale: {x: 100.83745, y: 112.498215, z: 1}
-=======
   m_LocalPosition: {x: 13, y: 7, z: 0}
   m_LocalScale: {x: 248.11438, y: 274.796, z: 1}
->>>>>>> Stashed changes
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 245052536}
@@ -3728,14 +3723,9 @@ GameObject:
   - component: {fileID: 1477958444}
   - component: {fileID: 1477958443}
   - component: {fileID: 1477958442}
-<<<<<<< Updated upstream
   - component: {fileID: 1477958446}
   - component: {fileID: 1477958447}
   m_Layer: 5
-=======
-  - component: {fileID: 1477958447}
-  m_Layer: 0
->>>>>>> Stashed changes
   m_Name: Canvas
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -3817,7 +3807,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-<<<<<<< Updated upstream
   - {fileID: 1700110688}
   - {fileID: 1066200674}
   - {fileID: 1492714637}
@@ -3826,11 +3815,6 @@ RectTransform:
   - {fileID: 2038335046}
   - {fileID: 239402366}
   - {fileID: 1672367398}
-=======
-  - {fileID: 1492714637}
-  - {fileID: 1700110688}
-  - {fileID: 1066200674}
->>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3849,7 +3833,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 967e6611861553a4ab740792a613b6da, type: 3}
   m_Name: 
-<<<<<<< Updated upstream
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
   timeText: {fileID: 1631149142}
   passed24seconds:
@@ -3877,25 +3860,6 @@ MonoBehaviour:
   panel: {fileID: 1672367398}
   itemImage: {fileID: 773404879}
   journal: {fileID: 239402369}
-=======
-  m_EditorClassIdentifier: Assembly-CSharp::CameraChanger
-  screens:
-  - {fileID: 1167831999}
-  - {fileID: 794691425}
-  - {fileID: 298352684}
-  - {fileID: 1311983244}
-  - {fileID: 739785383}
-  - {fileID: 2112506759}
-  - {fileID: 954934114}
-  buttons:
-  - {fileID: 823054522}
-  - {fileID: 2121520890}
-  - {fileID: 1570051631}
-  - {fileID: 478156630}
-  - {fileID: 330007335}
-  - {fileID: 896714475}
-  - {fileID: 1277275841}
->>>>>>> Stashed changes
 --- !u!1 &1492714636
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,10 +3872,6 @@ GameObject:
   - component: {fileID: 1492714640}
   - component: {fileID: 1492714639}
   - component: {fileID: 1492714638}
-<<<<<<< Updated upstream
-=======
-  - component: {fileID: 1492714642}
->>>>>>> Stashed changes
   - component: {fileID: 1492714641}
   m_Layer: 5
   m_Name: ButtonsGrid
@@ -4019,64 +3979,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1492714636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: 68476fec040d4e847bdb1e34d73feb35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonManager
   pauseButton: {fileID: 757619580}
   journalButton: {fileID: 657789480}
   journalPanel: {fileID: 239402365}
-=======
-  m_Script: {fileID: 11500000, guid: 3d78a5b9d9abe4144b2bd3d92fa9f6e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraChanger
-  screens: []
-  buttons: []
---- !u!114 &1492714642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1492714636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1492714639}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
->>>>>>> Stashed changes
 --- !u!1 &1493233443
 GameObject:
   m_ObjectHideFlags: 0
@@ -5061,11 +4969,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-<<<<<<< Updated upstream
-  m_BackGroundColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0}
-=======
   m_BackGroundColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
->>>>>>> Stashed changes
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

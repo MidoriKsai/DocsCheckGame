@@ -1,18 +1,12 @@
-<<<<<<< Updated upstream
 using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
-=======
-using TMPro;
-using UnityEngine;
->>>>>>> Stashed changes
 using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour
 {
-<<<<<<< Updated upstream
     public TextMeshProUGUI timeText;
 
     private float realTimeDuration = 120f;
@@ -33,29 +27,11 @@ public class TimeManager : MonoBehaviour
         timeText.text = $"{hours:00}:{minutes:00}";
         
         if (timer >= realTimeDuration)
-=======
-    private float gameTimeInMinutes = 0f;
-    private float timeScale = 3.5f;
-    public TextMeshProUGUI timeText;
-    
-    void Start()
-    {
-        UpdateTimeDisplay();
-    }
-    
-    void Update()
-    {
-        gameTimeInMinutes += Time.deltaTime * timeScale;
-        UpdateTimeDisplay();
-        
-        if (gameTimeInMinutes >= 420f)
->>>>>>> Stashed changes
         {
             SceneManager.LoadScene("DayScene");
         }
     }
     
-<<<<<<< Updated upstream
     IEnumerator TimeCourutine()
     {
         while (true)
@@ -75,13 +51,3 @@ public class TimeManager : MonoBehaviour
         StopAllCoroutines();
     }
 }
-=======
-    private void UpdateTimeDisplay()
-    {
-        int hours = Mathf.FloorToInt(gameTimeInMinutes / 60f);
-        int minutes = Mathf.FloorToInt(gameTimeInMinutes % 60f);
-        
-        timeText.text = string.Format("{0:00}:{1:00}", hours, minutes);
-    }
-}
->>>>>>> Stashed changes
