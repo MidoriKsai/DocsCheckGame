@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace DayGameplayScripts
 {
@@ -24,6 +26,10 @@ namespace DayGameplayScripts
         public GameObject arrestConfirmationPanel;
         public WarningUIController warningUI;
         public Button nextDayButton;
+        
+        public GameObject energyDrinkUIPrefab;
+        public Transform energyDrinksParent;
+        private List<GameObject> _energyDrinkUIInstances = new();
         
         public TextMeshProUGUI visitorsText;
         public TextMeshProUGUI arrestedText;
@@ -48,10 +54,16 @@ namespace DayGameplayScripts
         private readonly HashSet<string> _arrestedGuestIds = new();
         private readonly List<GuestData> _missedWantedToday = new();
 
+        [Obsolete("Obsolete")]
         private void Start()
         {
+            // Убеждаемся, что Payload существует
+            NightShiftPayload.GetOrCreate();
+    
             buttonsUI.Init(this);
             generator.dayManager = this;
+    
+            UpdateEnergyDrinksUI();
 
             // Если данные ночной смены есть — показать сводку
             if (NightShiftPayload.Instance != null && NightShiftPayload.Instance.foundCluesNight > 0)
@@ -67,7 +79,8 @@ namespace DayGameplayScripts
         private void StartDay(int dayNumber)
         {
             UpdateDateUI();
-
+            UpdateEnergyDrinksUI();
+            
             _currentGuestIndex = 0;
             _warnings = 0;
             _visitorsToday = 0;
@@ -175,6 +188,16 @@ namespace DayGameplayScripts
                         _arrestedWantedToday++;
                         _warnings = Mathf.Max(0, _warnings - 2);
                         _warningBonusPoints += 2;
+                        
+                        if (NightShiftPayload.Instance != null)
+                        {
+                            bool added = NightShiftPayload.Instance.AddEnergyDrink();
+                            if (added)
+                            {
+                                UpdateEnergyDrinksUI();
+                                Debug.Log("Получен энергетик за правильное задержание!");
+                            }
+                        }
                     }
                     else
                         _warnings++;
@@ -243,6 +266,24 @@ namespace DayGameplayScripts
                 payload.extraWantedWithClues = null;
             }
             StartCoroutine(ShowPanelsAndLoadScene(showTired: false));
+        }
+        
+        private void UpdateEnergyDrinksUI()
+        {
+            if (NightShiftPayload.Instance == null || energyDrinksParent == null || energyDrinkUIPrefab == null)
+                return;
+
+            foreach (var instance in _energyDrinkUIInstances)
+            {
+                Destroy(instance);
+            }
+            _energyDrinkUIInstances.Clear();
+
+            for (var i = 0; i < NightShiftPayload.Instance.EnergyDrinks; i++)
+            {
+                var energyDrinkUI = Instantiate(energyDrinkUIPrefab, energyDrinksParent);
+                _energyDrinkUIInstances.Add(energyDrinkUI);
+            }
         }
 
         private void ShowDailySummary()
