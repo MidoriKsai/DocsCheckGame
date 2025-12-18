@@ -5282,6 +5282,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347428614}
   m_CullTransparentMesh: 1
+--- !u!1 &1349200463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6018814824559393707, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
+  m_PrefabInstance: {fileID: 1379265494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1361456269
 GameObject:
   m_ObjectHideFlags: 0
@@ -5647,24 +5652,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 809058944189382581, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809058944189382581, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: 61363d08c5388e540854912f15472cc0, type: 3}
     - target: {fileID: 809058944189382581, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 809058944189382581, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
       propertyPath: m_Color.b
-      value: 0.8509804
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 809058944189382581, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
       propertyPath: m_Color.g
-      value: 0.8509804
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 809058944189382581, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
       propertyPath: m_Color.r
-      value: 0.8509804
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1321568667962828352, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
       propertyPath: lastNameText
@@ -5879,7 +5888,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6841811276287497533, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
       insertIndex: 4
       addedObject: {fileID: 2125757023}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6018814824559393707, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1970559593}
   m_SourcePrefab: {fileID: 100100000, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
 --- !u!1 &1397110606
 GameObject:
@@ -8362,12 +8374,24 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1321568667962828352, guid: 651e981ea0d52b74cb78ead40b138efb, type: 3}
   m_PrefabInstance: {fileID: 1379265494}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1349200463}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 860ded8deba5445aaf6b9b1afd684fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayGameplayScripts.WantedDetailUI
+--- !u!114 &1970559593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349200463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520d6aeee8791914ab53ac400c85a98d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragAndDrop
 --- !u!1 &1984700605
 GameObject:
   m_ObjectHideFlags: 0
