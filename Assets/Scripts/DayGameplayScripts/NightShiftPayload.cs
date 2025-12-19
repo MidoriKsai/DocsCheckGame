@@ -16,6 +16,8 @@ namespace DayGameplayScripts
         public int warningsToday;
         public int foundCluesNight;
         public int warningBonusPoints;
+        public List<GuestData> wantedGuests = new();
+        public GuestData selectedGuest;
         
         // Добавляем энергетики
         private int _energyDrinks = 2; // Начальное количество
