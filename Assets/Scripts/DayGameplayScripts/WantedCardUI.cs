@@ -11,7 +11,7 @@ namespace DayGameplayScripts
         private WantedListUI _wantedListUI; 
         private GuestData _wantedData;
 
-        public void Setup(GuestData wantedData, WantedListUI wantedListUI) //Sprite portraitSprite=null)
+        public void Setup(GuestData wantedData, WantedListUI wantedListUI)
         {
             _wantedData = wantedData; 
             _wantedListUI = wantedListUI; 

@@ -1,13 +1,24 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
-public class JournalManager : MonoBehaviour
+public class NightJournal : MonoBehaviour
 {
-    public TextMeshProUGUI journalText;
+    public Transform page1;
+    public Transform page2;
+    public Image cluePrefab;
 
-    public void AddRecord(string text)
+    private int count = 0;
+    private const int MaxPerPage = 6;
+
+    public void AddClue(Sprite sprite)
     {
-        journalText.text += "\n• " + text;
+        Transform page = count < MaxPerPage ? page1 : page2;
+
+        var img = Instantiate(cluePrefab, page);
+        img.sprite = sprite;
+        img.preserveAspect = true;
+        img.gameObject.SetActive(true);
+
+        count++;
     }
 }
-
