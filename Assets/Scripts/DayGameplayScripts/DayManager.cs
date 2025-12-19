@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NightGameplayScripts;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,6 +13,7 @@ namespace DayGameplayScripts
     public class DayManager : MonoBehaviour
     {
         public GuestGenerator generator;
+        public WantedListGenerator wantedListGenerator;
         public Transform guestSpawnParent;
         public GameObject guestPrefab;
         public GuestTicketUI ticketUI;
@@ -243,6 +245,7 @@ namespace DayGameplayScripts
                 payload.warningsToday = _warnings;
                 payload.warningBonusPoints = _warningBonusPoints;
                 payload.foundCluesNight = 0;
+                payload.wantedGuests = wantedListGenerator.wantedGuests;
                 
 
                 if (_missedWantedToday.Count == 0)
@@ -265,6 +268,7 @@ namespace DayGameplayScripts
                 
                 payload.extraWantedWithClues = null;
             }
+            NightStaticManager.nightShiftPayload = NightShiftPayload.Instance;
             StartCoroutine(ShowPanelsAndLoadScene(showTired: false));
         }
         
