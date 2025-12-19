@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
 
 namespace DayGameplayScripts
 {
@@ -11,32 +13,37 @@ namespace DayGameplayScripts
         public List<GuestData> wantedGuests = new();
 
         [Range(1, 10)] public int countWanted = 6;
+        public static bool IsReady { get; private set; }
 
         private void Awake()
         {
-            LoadGuestsFromJson();
-            GenerateWantedGuests();
+            StartCoroutine(LoadGuestsFromJson());
         }
 
-        private void LoadGuestsFromJson()
+        private IEnumerator LoadGuestsFromJson()
         {
             var path = Path.Combine(Application.streamingAssetsPath, "guests.json");
 
-            if (!File.Exists(path))
+            UnityWebRequest request = UnityWebRequest.Get(path);
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError("Не найден файл гостей: " + path);
-                return;
+                Debug.LogError("Ошибка загрузки гостей: " + request.error);
+                yield break;
             }
 
-            var jsonText = File.ReadAllText(path);
+            var jsonText = request.downloadHandler.text;
             var wrappedJson = "{\"guests\":" + jsonText + "}";
             var wrapper = JsonUtility.FromJson<GuestListWrapper>(wrappedJson);
 
             allGuests = wrapper.guests;
+            IsReady = true;
 
-            // Загрузка спрайтов
             foreach (var guest in allGuests)
                 guest.LoadSprites();
+
+            GenerateWantedGuests(); // ❗ теперь вызываем ТУТ
         }
 
 
