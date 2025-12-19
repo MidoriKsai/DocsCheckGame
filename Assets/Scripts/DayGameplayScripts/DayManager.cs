@@ -57,24 +57,27 @@ namespace DayGameplayScripts
         private readonly List<GuestData> _missedWantedToday = new();
 
         [Obsolete("Obsolete")]
-        private void Start()
+        private IEnumerator Start()
         {
             // Убеждаемся, что Payload существует
             NightShiftPayload.GetOrCreate();
-    
+
             buttonsUI.Init(this);
             generator.dayManager = this;
-    
+
             UpdateEnergyDrinksUI();
 
+            // ⏳ ЖДЁМ, пока загрузятся гости
+            yield return new WaitUntil(() => WantedListGenerator.IsReady);
+
+            // Запускаем день ОДИН раз
+            StartDay(_currentDay);
+
             // Если данные ночной смены есть — показать сводку
-            if (NightShiftPayload.Instance != null && NightShiftPayload.Instance.foundCluesNight > 0)
+            if (NightShiftPayload.Instance != null &&
+                NightShiftPayload.Instance.foundCluesNight > 0)
             {
                 ShowDailySummary();
-            }
-            else
-            {
-                StartDay(_currentDay);
             }
         }
         
