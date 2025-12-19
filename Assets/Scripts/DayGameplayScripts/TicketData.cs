@@ -40,7 +40,7 @@ namespace DayGameplayScripts
 
         private void RandomizeError()
         {
-            int badDay = UnityEngine.Random.Range(1, 32);
+            int badDay = UnityEngine.Random.Range(1, 29);
             var invalidDate = new DateTime(DateTime.Now.Year, UnityEngine.Random.Range(1, 8), badDay);
             validUntil = invalidDate.ToString("dd.MM.yyyy");
         }

@@ -6,6 +6,7 @@ namespace DayGameplayScripts
 {
     public class WantedListGenerator : MonoBehaviour
     {
+        DayManager dayManager;
         public List<GuestData> allGuests = new();
         public List<GuestData> wantedGuests = new();
 

@@ -3809,7 +3809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2641698482785147981, guid: b86d52cbb634538419577bdf919c2db8, type: 3}
+  m_Sprite: {fileID: 2641698482785147981, guid: df1be19b6868d20469b70fed3f29f58a, type: 3}
   m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7354,6 +7354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayGameplayScripts.DayManager
   generator: {fileID: 1630827918}
+  wantedListGenerator: {fileID: 1961291124}
   guestSpawnParent: {fileID: 1630827915}
   guestPrefab: {fileID: 40048339307506708, guid: ce2da509f225e7740a48b04a66afcf87, type: 3}
   ticketUI: {fileID: 1848145310}
@@ -7477,7 +7478,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2697061917079264803, guid: 0952b84f39f16cd40963bab74ea9ab82, type: 3}
+  m_Sprite: {fileID: -2697061917079264803, guid: 4d5dce588741c9b4cbe3cd0c23d23cfb, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
