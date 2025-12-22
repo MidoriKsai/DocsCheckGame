@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DayGameplayScripts;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
@@ -28,6 +29,7 @@ public class TimeManager : MonoBehaviour
         
         if (timer >= realTimeDuration)
         {
+            NightShiftPayload.Instance.nightCompleted = true;
             SceneManager.LoadScene("DayScene");
         }
     }
