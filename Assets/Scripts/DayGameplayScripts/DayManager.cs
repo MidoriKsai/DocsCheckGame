@@ -39,10 +39,11 @@ namespace DayGameplayScripts
         public TextMeshProUGUI warningBonusText;
         public TextMeshProUGUI totalWarningsText;
         public TextMeshProUGUI endShiftWarningsText;
+        public TextMeshProUGUI endGameText;
 
         private int _currentGuestIndex;
-        private int _currentDay = 1;
         private const int TotalDays = 5;
+        private int _totalGuests = 0;
 
         private int _warnings;
         private int _visitorsToday;
@@ -70,14 +71,16 @@ namespace DayGameplayScripts
             // ⏳ ЖДЁМ, пока загрузятся гости
             yield return new WaitUntil(() => WantedListGenerator.IsReady);
 
-            // Запускаем день ОДИН раз
-            StartDay(_currentDay);
-
             // Если данные ночной смены есть — показать сводку
             if (NightShiftPayload.Instance != null &&
-                NightShiftPayload.Instance.foundCluesNight > 0)
+                NightShiftPayload.Instance.nightCompleted)
             {
                 ShowDailySummary();
+                NightShiftPayload.Instance.nightCompleted = false; // сброс
+            }
+            else
+            {
+                StartDay(NightShiftPayload.Instance.currentDay);
             }
         }
         
@@ -85,20 +88,21 @@ namespace DayGameplayScripts
         {
             UpdateDateUI();
             UpdateEnergyDrinksUI();
-            
+
             _currentGuestIndex = 0;
-            _warnings = 0;
             _visitorsToday = 0;
             _arrestedWantedToday = 0;
             _warningBonusPoints = 0;
             _missedWantedToday.Clear();
+            
+            if (NightShiftPayload.Instance != null)
+                _warnings = NightShiftPayload.Instance.warningsToday;
+            else
+                _warnings = 0;
 
             endDayPanel.SetActive(false);
             gameOverPanel.SetActive(false);
             nextDayButton.gameObject.SetActive(false);
-
-            if (dayText != null)
-                dayText.text = $"День {dayNumber}/{TotalDays} завершён!";
 
             generator.GenerateGuestsForDay(dayNumber);
             SpawnNextGuest();
@@ -123,6 +127,8 @@ namespace DayGameplayScripts
             guestController.Initialize(guestData);
             _currentGuestController = guestController;
 
+            _totalGuests += 1;
+            
             guestController.OnReadyForDecision = (gc) =>
             {
                 _currentGuest = gc.guestData;
@@ -162,7 +168,7 @@ namespace DayGameplayScripts
 
             var isWanted = generator.wantedListGenerator.wantedGuests.Contains(_currentGuest);
             var correct = false;
-            var isExpired = _currentTicket.validUntilDay < _currentDay;
+            var isExpired = _currentTicket.validUntilDay < NightShiftPayload.Instance.currentDay;
 
             _visitorsToday++;
 
@@ -180,7 +186,12 @@ namespace DayGameplayScripts
 
                 case GuestDecision.Deny:
                     if (_currentTicket.isFake || isExpired)
+                    {
                         correct = true;
+                        _warnings = Mathf.Max(0, _warnings - 1);
+                        _warningBonusPoints += 1;
+                    }
+                    
                     else
                         _warnings++;
                     break;
@@ -209,8 +220,10 @@ namespace DayGameplayScripts
                     break;
             }
 
-            if (correct && decision != GuestDecision.Arrest)
+            if (!correct && _warnings == 5)
             {
+                GameOver();
+                return;
             }
 
             UpdateWarningUI();
@@ -225,8 +238,7 @@ namespace DayGameplayScripts
 
         private void UpdateDateUI()
         {
-            if (dateText != null)
-                dateText.text = $"{_currentDay}";
+            dateText.text = $"{NightShiftPayload.Instance.currentDay}";
         }
 
         private void UpdateWarningUI()
@@ -236,7 +248,7 @@ namespace DayGameplayScripts
 
         private void EndDay()
         {
-            Debug.Log($"День {_currentDay} завершён!");
+            Debug.Log($"День {NightShiftPayload.Instance.currentDay} завершён!");
 
             if (NightShiftPayload.Instance != null)
             {
@@ -299,7 +311,7 @@ namespace DayGameplayScripts
             if (payload == null) return;
 
             endDayPanel.SetActive(true);
-
+            dayText.text = $"День {payload.currentDay}/5 завершён!";
             visitorsText.text = $"Посетителей\n{payload.visitorsToday}";
             arrestedText.text = $"Сущностей\n{payload.arrestedWantedToday}";
             cluesText.text = $"Улик\n{payload.foundCluesNight}";
@@ -312,9 +324,9 @@ namespace DayGameplayScripts
             nextDayButton.onClick.AddListener(() =>
             {
                 nextDayButton.gameObject.SetActive(false);
-                _currentDay++;
-                if (_currentDay <= TotalDays)
-                    StartDay(_currentDay);
+                payload.currentDay++;
+                if (payload.currentDay <= TotalDays)
+                    StartDay(payload.currentDay);
                 else
                     Debug.Log("Игра завершена: все дни пройдены!");
             });
@@ -337,7 +349,18 @@ namespace DayGameplayScripts
             yield return new WaitForSeconds(2f);
             SceneManager.LoadScene("NightScene");
         }
+        public void GameOver() 
+        {
+            gameOverPanel.SetActive(true);
+            endGameText.text = $"Смен: {NightShiftPayload.Instance.currentDay}/5 \n" +
+                          $"Гостей: {_totalGuests}  \n" +
+                          $"Выявлено сущеностей: {_arrestedGuestIds.Count} \n" +
+                          $"Предупреждений: {_warnings}/5 \n";
+        }
+
+        public void LoadMainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
-    
-    
 }

@@ -18,6 +18,8 @@ namespace DayGameplayScripts
         public int warningBonusPoints;
         public List<GuestData> wantedGuests = new();
         public GuestData selectedGuest;
+        public bool nightCompleted;
+        public int currentDay = 1;
         
         // Добавляем энергетики
         private int _energyDrinks = 2; // Начальное количество
@@ -65,7 +67,7 @@ namespace DayGameplayScripts
         
         // Статический метод для получения Instance (создает при необходимости)
         [Obsolete("Obsolete")]
-        public static NightShiftPayload GetOrCreate()
+        public static void GetOrCreate()
         {
             if (Instance == null)
             {
@@ -83,7 +85,27 @@ namespace DayGameplayScripts
                     DontDestroyOnLoad(go);
                 }
             }
-            return Instance;
         }
+        
+        public void ResetPayload()
+        {
+            skippedWanted.Clear();
+            extraWantedWithClues = null;
+
+            visitorsToday = 0;
+            arrestedWantedToday = 0;
+            warningsToday = 0;
+            foundCluesNight = 0;
+            warningBonusPoints = 0;
+
+            wantedGuests.Clear();
+            selectedGuest = null;
+
+            nightCompleted = false;
+            currentDay = 1;
+
+            EnergyDrinks = 2;
+        }
+
     }
 }
