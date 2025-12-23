@@ -1,3 +1,4 @@
+using DayGameplayScripts;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,7 @@ public class ButtonManager : MonoBehaviour
 
     void LoadDay()
     {
+        NightShiftPayload.Instance.nightCompleted = true;
         SceneManager.LoadScene("DayScene");
     }
 }
