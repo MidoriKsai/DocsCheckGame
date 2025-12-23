@@ -22,6 +22,7 @@ namespace DayGameplayScripts
         public TextMeshProUGUI dayText;
         public TextMeshProUGUI dateText;
         public GameObject gameOverPanel;
+        public GameObject endGamePanel;
         public GameObject endDayPanel;
         public GameObject tiredPanel;
         public GameObject startNightPanel;
@@ -31,7 +32,7 @@ namespace DayGameplayScripts
         
         public GameObject energyDrinkUIPrefab;
         public Transform energyDrinksParent;
-        private List<GameObject> _energyDrinkUIInstances = new();
+        private readonly List<GameObject> _energyDrinkUIInstances = new();
         
         public TextMeshProUGUI visitorsText;
         public TextMeshProUGUI arrestedText;
@@ -39,11 +40,13 @@ namespace DayGameplayScripts
         public TextMeshProUGUI warningBonusText;
         public TextMeshProUGUI totalWarningsText;
         public TextMeshProUGUI endShiftWarningsText;
+        public TextMeshProUGUI gameOverText;
         public TextMeshProUGUI endGameText;
+        public TextMeshProUGUI endGameDescriptionText;
 
         private int _currentGuestIndex;
         private const int TotalDays = 5;
-        private int _totalGuests = 0;
+        private int _totalGuests;
 
         private int _warnings;
         private int _visitorsToday;
@@ -95,10 +98,7 @@ namespace DayGameplayScripts
             _warningBonusPoints = 0;
             _missedWantedToday.Clear();
             
-            if (NightShiftPayload.Instance != null)
-                _warnings = NightShiftPayload.Instance.warningsToday;
-            else
-                _warnings = 0;
+            _warnings = NightShiftPayload.Instance != null ? NightShiftPayload.Instance.warningsToday : 0;
 
             endDayPanel.SetActive(false);
             gameOverPanel.SetActive(false);
@@ -325,10 +325,10 @@ namespace DayGameplayScripts
             {
                 nextDayButton.gameObject.SetActive(false);
                 payload.currentDay++;
-                if (payload.currentDay <= TotalDays)
+                if (payload.currentDay <= TotalDays && _arrestedGuestIds.Count != 6)
                     StartDay(payload.currentDay);
                 else
-                    Debug.Log("Игра завершена: все дни пройдены!");
+                    EndGame();
             });
         }
 
@@ -349,17 +349,41 @@ namespace DayGameplayScripts
             yield return new WaitForSeconds(2f);
             SceneManager.LoadScene("NightScene");
         }
-        public void GameOver() 
+
+        private void GameOver() 
         {
             gameOverPanel.SetActive(true);
-            endGameText.text = $"Смен: {NightShiftPayload.Instance.currentDay}/5 \n" +
+            gameOverText.text = $"Смен: {NightShiftPayload.Instance.currentDay}/5 \n" +
                           $"Гостей: {_totalGuests}  \n" +
-                          $"Выявлено сущеностей: {_arrestedGuestIds.Count} \n" +
+                          $"Выявлено сущностей: {_arrestedGuestIds.Count} \n" +
                           $"Предупреждений: {_warnings}/5 \n";
+        }
+        
+        private void EndGame() 
+        {
+            endGamePanel.SetActive(true); 
+            endGameText.text = $"Смен: {NightShiftPayload.Instance.currentDay-1}/5 \n" +
+                               $"Гостей: {_totalGuests}  \n" +
+                               $"Выявлено сущностей: {_arrestedGuestIds.Count} \n" +
+                               $"Предупреждений: {_warnings}/5 \n";
+            
+            if (_arrestedGuestIds.Count == 6)
+            {
+                endGameDescriptionText.text = "Вы выполнили свой долг. Парк и его гости в безопасности...\n" +
+                                              "Насколько это вообще возможно. МКА высылает Вам премию и почётные награды. Но конец ли это?";
+            }
+            else
+            {
+                endGameDescriptionText.text =
+                    "Музыка умолкла, гирлянды погасли. Пять дней прошли, но не всех сущностей удалось поймать.\n" +
+                    "Парк закрыт, но тишина обманчива. Что-то всё ещё бродит среди аттракционов.. И забирает простых горожан\n" +
+                    "Звенит сирена МКА...За недостаточную эффективность будут последствия...";
+            }
         }
 
         public void LoadMainMenu()
         {
+            NightShiftPayload.Instance.ResetPayload();
             SceneManager.LoadScene("MainMenu");
         }
     }
