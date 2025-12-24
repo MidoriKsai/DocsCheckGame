@@ -15,10 +15,32 @@ namespace DayGameplayScripts
 
         private TicketData _ticket;
 
-        // Показывает существующий билет
+        private RectTransform _rectTransform;
+        private Vector2 _initialPosition;
+        private bool _initialized;
+
+        private void OnEnable()
+        {
+            if (_initialized) return;
+
+            _rectTransform = GetComponent<RectTransform>();
+            _initialPosition = _rectTransform.anchoredPosition;
+            _initialized = true;
+        }
+
         public void Show(TicketData ticket)
         {
+            if (ticket == null)
+            {
+                Debug.LogError("GuestTicketUI.Show: ticket == null");
+                return;
+            }
+
             _ticket = ticket;
+
+            // 🔁 всегда возвращаем билет в исходное место
+            if (_rectTransform != null)
+                _rectTransform.anchoredPosition = _initialPosition;
 
             gameObject.SetActive(true);
 
