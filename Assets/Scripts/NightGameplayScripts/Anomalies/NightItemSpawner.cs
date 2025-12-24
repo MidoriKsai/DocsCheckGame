@@ -10,8 +10,8 @@ public class NightItemSpawner : MonoBehaviour
     public NightJournal journal;      // Журнал для записи найденных предметов
 
     [Header("Настройки")]
-    public int minSwitches = 3;
-    public int maxSwitches = 15;
+    public int minSwitches = 5;
+    public int maxSwitches = 20;
 
     private Image currentItem;
     private Sprite chosenSprite;
@@ -29,8 +29,7 @@ public class NightItemSpawner : MonoBehaviour
             Debug.LogError("NightShiftPayload отсутствует");
             return;
         }
-
-        // Выбираем гостя для ночной улики
+        
         if (payload.skippedWanted != null && payload.skippedWanted.Count > 0)
         {
             selectedGuest = payload.skippedWanted[Random.Range(0, payload.skippedWanted.Count)];
@@ -54,11 +53,9 @@ public class NightItemSpawner : MonoBehaviour
             Debug.LogWarning($"У гостя {selectedGuest.firstName} нет улик");
             return;
         }
-
-        // Выбираем случайную улику для спавна
+        
         chosenSprite = selectedGuest.LoadedClues[Random.Range(0, selectedGuest.LoadedClues.Length)];
-
-        // Определяем количество переключений, после которых появится улика
+        
         switchesNeeded = Random.Range(minSwitches, maxSwitches + 1);
         currentSwitchCount = 0;
 
@@ -69,16 +66,7 @@ public class NightItemSpawner : MonoBehaviour
     {
         currentSwitchCount++;
         Debug.Log($"Переключение камеры: {currentSwitchCount}/{switchesNeeded}");
-
-        // Если улика уже на сцене и переключение камеры другое, убираем её
-        if (currentItem != null)
-        {
-            Destroy(currentItem.gameObject);
-            currentItem = null;
-            Debug.Log("Улика убрана при смене камеры");
-        }
-
-        // Спавним улику только один раз
+        
         if (currentSwitchCount == switchesNeeded)
         {
             SpawnItem();
@@ -107,6 +95,7 @@ public class NightItemSpawner : MonoBehaviour
         if (journal != null)
         {
             journal.AddClue(chosenSprite);
+            Destroy(currentItem.gameObject);
             Debug.Log($"Улика {selectedGuest.firstName} добавлена в журнал");
         }
     }
