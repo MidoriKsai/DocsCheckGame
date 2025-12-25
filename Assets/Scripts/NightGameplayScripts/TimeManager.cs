@@ -14,9 +14,11 @@ public class TimeManager : MonoBehaviour
     private float displayedDuration = 7f * 3600f;
     private float timer = 0f;
     public UnityEvent passed24seconds;
+    private bool nightEnded = false;
     
     void Update()
     {
+        if (nightEnded) return;
         timer += Time.deltaTime;
         float t = Mathf.Clamp(timer / realTimeDuration, 0f, 1f);
         
@@ -29,6 +31,7 @@ public class TimeManager : MonoBehaviour
         
         if (timer >= realTimeDuration)
         {
+            nightEnded = true;
             NightShiftPayload.Instance.nightCompleted = true;
             SceneManager.LoadScene("DayScene");
         }
