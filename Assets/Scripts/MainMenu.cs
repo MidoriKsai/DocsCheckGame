@@ -19,7 +19,10 @@ public class MainMenu : MonoBehaviour
         AudioManager.Instance.PlaySFX("hoveringButtonMusic");
         if (NightShiftPayload.Instance != null)
         {
-            NightShiftPayload.Instance.nightCompleted = false;
+            var payload = NightShiftPayload.Instance;
+            payload.nightCompleted = false;
+            payload.EnergyDrinks = payload.energyDrinksAtDayStart;
+            payload.warningsToday = payload.warningsAtDayStart;
         }
         SceneManager.LoadScene("DayScene");
     }
