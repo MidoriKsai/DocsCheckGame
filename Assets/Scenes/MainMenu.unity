@@ -1103,6 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8463b02887b44e3a8c8b37c3c622addc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  playGameButton: {fileID: 234374683}
 --- !u!114 &1615090867
 MonoBehaviour:
   m_ObjectHideFlags: 0
