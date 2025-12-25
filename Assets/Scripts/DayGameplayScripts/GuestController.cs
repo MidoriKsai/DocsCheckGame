@@ -15,7 +15,11 @@ namespace DayGameplayScripts
         private void Awake()
         {
             _guestButton = GetComponent<Button>();
-            _guestButton.onClick.AddListener(() => OnReadyForDecision?.Invoke(this));
+            _guestButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance.PlaySFX("menuButtonMusic");
+                OnReadyForDecision?.Invoke(this);
+            });
         }
 
         public void Initialize(GuestData data)

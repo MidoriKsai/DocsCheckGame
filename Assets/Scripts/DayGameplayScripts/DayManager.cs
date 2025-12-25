@@ -97,14 +97,35 @@ namespace DayGameplayScripts
             _arrestedWantedToday = 0;
             _warningBonusPoints = 0;
             _missedWantedToday.Clear();
-            
+
             _warnings = NightShiftPayload.Instance != null ? NightShiftPayload.Instance.warningsToday : 0;
 
             endDayPanel.SetActive(false);
             gameOverPanel.SetActive(false);
             nextDayButton.gameObject.SetActive(false);
-
+            
             generator.GenerateGuestsForDay(dayNumber);
+
+            // --- Проверка первого запуска ---
+            if (!PlayerPrefs.HasKey("FirstLaunch"))
+            {
+                PlayerPrefs.SetInt("FirstLaunch", 1);
+                PlayerPrefs.Save();
+
+                if (TutorialManager.Instance != null)
+                {
+                    // Запускаем туториал поверх подгруженных гостей
+                    TutorialManager.Instance.StartTutorial();
+                    SpawnNextGuest(); 
+                    UpdateWarningUI();
+                    
+                }
+
+                // Не спавним гостей сразу
+                return;
+            }
+
+            // --- обычный запуск дня ---
             SpawnNextGuest();
             UpdateWarningUI();
         }
@@ -159,6 +180,7 @@ namespace DayGameplayScripts
 
         public void OnConfirmArrestNo()
         {
+            AudioManager.Instance.PlaySFX("menuButtonMusic");
             arrestConfirmationPanel.SetActive(false);
         }
 
@@ -175,6 +197,7 @@ namespace DayGameplayScripts
             switch (decision)
             {
                 case GuestDecision.Allow:
+                    AudioManager.Instance.PlaySFX("menuButtonMusic");
                     if (!isWanted && !_currentTicket.isFake && !isExpired)
                         correct = true;
                     else
@@ -185,6 +208,7 @@ namespace DayGameplayScripts
                     break;
 
                 case GuestDecision.Deny:
+                    AudioManager.Instance.PlaySFX("dontPassMusic");
                     if (_currentTicket.isFake || isExpired)
                     {
                         correct = true;
@@ -197,6 +221,7 @@ namespace DayGameplayScripts
                     break;
 
                 case GuestDecision.Arrest:
+                    AudioManager.Instance.PlaySFX("arrestMusic");
                     if (isWanted)
                     {
                         correct = true;
@@ -246,46 +271,100 @@ namespace DayGameplayScripts
             warningUI.SetWarnings(_warnings);
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private void EndDay()
         {
             Debug.Log($"День {NightShiftPayload.Instance.currentDay} завершён!");
+            
+            var payload = NightShiftPayload.Instance;
+            bool perfectShift = _missedWantedToday.Count == 0;
+            payload.currentDay++;
 
-            if (NightShiftPayload.Instance != null)
+            if (perfectShift && payload.wantedGuests.Count > 0)
             {
-                var payload = NightShiftPayload.Instance;
-
-                payload.skippedWanted = new List<GuestData>(_missedWantedToday);
-                payload.visitorsToday = _visitorsToday;
-                payload.arrestedWantedToday = _arrestedWantedToday;
-                payload.warningsToday = _warnings;
-                payload.warningBonusPoints = _warningBonusPoints;
-                payload.foundCluesNight = 0;
-                payload.wantedGuests = wantedListGenerator.wantedGuests;
-                
-
-                if (_missedWantedToday.Count == 0)
+                GuestData extra;
+                do
                 {
-                    var wantedGuests = generator.wantedListGenerator.wantedGuests;
-                    if (wantedGuests.Count > 0)
-                    {
-                        GuestData randomExtraWanted;
-                        do
-                        {
-                            randomExtraWanted = wantedGuests[Random.Range(0, wantedGuests.Count)];
-                        } while (_arrestedGuestIds.Contains(randomExtraWanted.id)); // чтобы не добавлять уже арестованного
-
-                        payload.extraWantedWithClues = randomExtraWanted;
-                    }
-                    
-                    StartCoroutine(ShowPanelsAndLoadScene(showTired: true));
-                    return;
+                    extra = payload.wantedGuests[Random.Range(0, payload.wantedGuests.Count)];
                 }
-                
+                while (_arrestedGuestIds.Contains(extra.id));
+
+                payload.extraWantedWithClues = extra;
+                Debug.Log($"[DayManager] ExtraWanted добавлен: {extra.firstName}");
+            }
+            else
+            {
                 payload.extraWantedWithClues = null;
             }
+            
+            if (payload != null)
+            {
+                // сохраняем пропущенных разыскиваемых
+                payload.skippedWanted = new List<GuestData>(_missedWantedToday);
+
+                payload.visitorsToday = _visitorsToday;
+                payload.arrestedWantedToday += _arrestedWantedToday;
+                payload.warningsToday += _warnings;
+                payload.warningBonusPoints += _warningBonusPoints;
+
+                // сохраняем найденные улики
+                if (NightStaticManager.nightShiftPayload != null)
+                {
+                    payload.foundCluesNight += NightStaticManager.nightShiftPayload.foundCluesNight;
+                    payload.foundClueSprites.AddRange(NightStaticManager.nightShiftPayload.foundClueSprites);
+                }
+
+                payload.wantedGuests = wantedListGenerator.wantedGuests;
+
+                // логика ночи
+                CalculateNightClues();
+                UpdateWantedNights();
+                CheckLoseCondition();
+
+                payload.nightCompleted = true;
+            }
+
+            // сохраняем итоговый payload для следующей сцены
             NightStaticManager.nightShiftPayload = NightShiftPayload.Instance;
-            StartCoroutine(ShowPanelsAndLoadScene(showTired: false));
+            payload.wantedGuests = wantedListGenerator.wantedGuests;
+            StartCoroutine(ShowPanelsAndLoadScene(showTired: perfectShift));
         }
+        
+        private void CalculateNightClues()
+        {
+            var payload = NightShiftPayload.Instance;
+
+            int wantedCount = payload.wantedGuests.Count;
+            payload.foundCluesNight = wantedCount;
+        }
+        
+        private void UpdateWantedNights()
+        {
+            var payload = NightShiftPayload.Instance;
+
+            foreach (var guest in payload.wantedGuests)
+            {
+                guest.nightsOnTerritory++;
+
+                if (guest.nightsOnTerritory >= 3)
+                {
+                    payload.guestDiedTonight = true;
+                }
+            }
+        }
+        
+        private void CheckLoseCondition()
+        {
+            var payload = NightShiftPayload.Instance;
+
+            if (payload.guestDiedTonight)
+            {
+                Debug.Log("ПОРАЖЕНИЕ: гость погиб ночью");
+                // загрузка экрана поражения
+                // SceneManager.LoadScene("LoseScene");
+            }
+        }
+        
         
         private void UpdateEnergyDrinksUI()
         {
@@ -369,11 +448,13 @@ namespace DayGameplayScripts
             
             if (_arrestedGuestIds.Count == 6)
             {
+                AudioManager.Instance.PlaySFX("winButtonMusic");
                 endGameDescriptionText.text = "Вы выполнили свой долг. Парк и его гости в безопасности...\n" +
                                               "Насколько это вообще возможно. МКА высылает Вам премию и почётные награды. Но конец ли это?";
             }
             else
             {
+                AudioManager.Instance.PlaySFX("lossButtonMusic");
                 endGameDescriptionText.text =
                     "Музыка умолкла, гирлянды погасли. Пять дней прошли, но не всех сущностей удалось поймать.\n" +
                     "Парк закрыт, но тишина обманчива. Что-то всё ещё бродит среди аттракционов.. И забирает простых горожан\n" +
@@ -383,6 +464,7 @@ namespace DayGameplayScripts
 
         public void LoadMainMenu()
         {
+            AudioManager.Instance.PlaySFX("menuButtonMusic");
             NightShiftPayload.Instance.ResetPayload();
             SceneManager.LoadScene("MainMenu");
         }

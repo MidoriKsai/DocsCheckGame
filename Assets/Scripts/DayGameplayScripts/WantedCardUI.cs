@@ -29,6 +29,7 @@ namespace DayGameplayScripts
 
         private void OnCardClicked()
         {
+            AudioManager.Instance.PlaySFX("menuButtonMusic");
             _wantedListUI.ShowDetail(_wantedData);
         } 
     } 

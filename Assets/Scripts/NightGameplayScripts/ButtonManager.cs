@@ -20,17 +20,20 @@ public class ButtonManager : MonoBehaviour
     
     void OpenJournal()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         journalPanel.SetActive(true);
     }
 
     void SwitchView()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         WorkViewPanel.SetActive(true);
         CameraViewPanel.SetActive(false);
     }
 
     void LoadDay()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         NightShiftPayload.Instance.nightCompleted = true;
         SceneManager.LoadScene("DayScene");
     }

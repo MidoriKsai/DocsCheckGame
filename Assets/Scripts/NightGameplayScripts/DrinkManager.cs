@@ -2,29 +2,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DayGameplayScripts;
 
 public class DrinkManager : MonoBehaviour
 {
-    [SerializeField] private int drinkCount;
     [SerializeField] private GameObject drinkPrefab;
-    private List<GameObject> drinkList ;
-    
+
     public UnityEvent drinkPressed;
-    
-    void Start()
+
+    private readonly List<GameObject> _drinkList = new();
+    private NightShiftPayload _payload;
+
+    private void Start()
     {
-        drinkList =  new List<GameObject>();
-        for (int i = 0; i < drinkCount; i++)
+        _payload = NightShiftPayload.Instance;
+        if (_payload == null)
+        {
+            Debug.LogError("NightShiftPayload не найден");
+            return;
+        }
+
+        RefreshUI();
+    }
+
+    private void RefreshUI()
+    {
+        // очищаем старые кнопки
+        foreach (var drink in _drinkList)
+            Destroy(drink);
+
+        _drinkList.Clear();
+
+        // создаём кнопки по данным payload
+        for (int i = 0; i < _payload.EnergyDrinks; i++)
         {
             var drink = Instantiate(drinkPrefab, transform);
             var button = drink.GetComponent<Button>();
-            button.onClick.AddListener(ButtonPressed);
-            drinkList.Add(drink);
-        }   
+
+            button.onClick.AddListener(OnDrinkPressed);
+            _drinkList.Add(drink);
+        }
     }
 
-    private void ButtonPressed()
+    private void OnDrinkPressed()
     {
-        drinkPressed.Invoke();
+        RefreshUI();
+        if (_payload.UseEnergyDrink())
+        {
+            AudioManager.Instance.PlaySFX("energyDrink");
+            RefreshUI();
+        }
     }
 }

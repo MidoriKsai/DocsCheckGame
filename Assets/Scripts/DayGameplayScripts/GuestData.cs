@@ -15,6 +15,7 @@ namespace DayGameplayScripts
         public string gender;
         public string fullBodySprite;
         public string portraitSprite;
+        public int nightsOnTerritory;
         public string[] clueSprites;
 
         [NonSerialized] public Sprite LoadedFullBody;

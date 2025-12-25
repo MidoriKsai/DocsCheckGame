@@ -56,6 +56,7 @@ namespace DayGameplayScripts
 
         private void Hide()
         {
+            AudioManager.Instance.PlaySFX("menuButtonMusic");
             gameObject.SetActive(false);
         }
     }

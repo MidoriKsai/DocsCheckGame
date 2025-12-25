@@ -30,6 +30,7 @@ namespace DayGameplayScripts
 
         public void Show(TicketData ticket)
         {
+            AudioManager.Instance.PlaySFX("ticketOpenMusic");
             if (ticket == null)
             {
                 Debug.LogError("GuestTicketUI.Show: ticket == null");
@@ -56,6 +57,7 @@ namespace DayGameplayScripts
 
         public void Hide()
         {
+            AudioManager.Instance.PlaySFX("menuButtonMusic");
             gameObject.SetActive(false);
         }
     }
