@@ -194,7 +194,8 @@ namespace DayGameplayScripts
         {
             if (_currentGuest == null || _currentTicket == null) return;
 
-            var isWanted = generator.wantedListGenerator.wantedGuests.Contains(_currentGuest);
+            var isWanted = generator.wantedListGenerator.wantedGuests
+                .Exists(w => w.id == _currentGuest.id);
             var correct = false;
             var isExpired = _currentTicket.validUntilDay < NightShiftPayload.Instance.currentDay;
 
@@ -315,7 +316,6 @@ namespace DayGameplayScripts
 
 
                 UpdateWantedNights();
-                CheckLoseCondition();
             }
 
             // сохраняем итоговый payload для следующей сцены
@@ -335,22 +335,10 @@ namespace DayGameplayScripts
                 if (guest.nightsOnTerritory >= 3)
                 {
                     payload.guestDiedTonight = true;
+                    GameOver();
                 }
             }
         }
-        
-        private void CheckLoseCondition()
-        {
-            var payload = NightShiftPayload.Instance;
-
-            if (payload.guestDiedTonight)
-            {
-                Debug.Log("ПОРАЖЕНИЕ: гость погиб ночью");
-                // загрузка экрана поражения
-                // SceneManager.LoadScene("LoseScene");
-            }
-        }
-        
         
         private void UpdateEnergyDrinksUI()
         {
