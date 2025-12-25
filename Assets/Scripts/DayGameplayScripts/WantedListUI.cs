@@ -16,6 +16,7 @@ namespace DayGameplayScripts
 
         private void DisplayWantedList()
         {
+            AudioManager.Instance.PlaySFX("wantedButtonMusic");
             foreach (Transform child in contentParent)
                 Destroy(child.gameObject);
 

@@ -1,45 +1,58 @@
+using System.Collections.Generic;
 using UnityEngine;
+using DayGameplayScripts;
 
 namespace DayGameplayScripts
 {
     public class ArrestManager : MonoBehaviour
     {
-        public WarningUIController warningUI;
+        [SerializeField] private WarningUIController warningUI;
+        [SerializeField] private ArrestConfirmPanel confirmPanel;
 
-        public void Arrest(GuestData guest)
+        private readonly HashSet<string> _arrestedGuestIds = new();
+
+        public void OnArrestButtonClicked(GuestData guest)
+        {
+            if (guest == null) return;
+            if (_arrestedGuestIds.Contains(guest.id))
+            {
+                Debug.Log("Гость уже арестован");
+                return;
+            }
+
+            confirmPanel.Show(guest, this);
+        }
+
+        public void ConfirmArrest(GuestData guest)
         {
             var payload = NightShiftPayload.Instance;
             if (payload == null || guest == null) return;
 
-            bool wasInPark =
-                payload.skippedWanted != null &&
-                payload.skippedWanted.Contains(guest);
+            bool eligibleForBonus =
+                (payload.skippedWanted != null && payload.skippedWanted.Contains(guest)) ||
+                (payload.extraWantedWithClues != null && payload.extraWantedWithClues == guest);
 
-            if (wasInPark)
+            if (eligibleForBonus)
             {
                 payload.warningsToday = Mathf.Max(0, payload.warningsToday - 2);
-                Debug.Log($"{guest.firstName} — был в парке → -2 предупреждения");
+                Debug.Log($"{guest.firstName} — бонус: -2 предупреждения");
             }
             else
             {
                 payload.warningsToday += 2;
-                Debug.Log($"{guest.firstName} — не был в парке → +2 предупреждения");
+                Debug.Log($"{guest.firstName} — штраф: +2 предупреждения");
             }
 
-            UpdateWarningUI(payload);
+            payload.arrestedWantedToday += 1;
+            _arrestedGuestIds.Add(guest.id);
+
+            if (warningUI != null)
+                warningUI.SetWarnings(payload.warningsToday + payload.warningBonusPoints);
         }
 
-        private void UpdateWarningUI(NightShiftPayload payload)
+        public bool IsGuestArrested(GuestData guest)
         {
-            if (warningUI != null)
-            {
-                // Показываем актуальные предупреждения
-                warningUI.SetWarnings(payload.warningsToday + payload.warningBonusPoints);
-            }
-            else
-            {
-                Debug.LogWarning("WarningUI не назначен!");
-            }
+            return _arrestedGuestIds.Contains(guest.id);
         }
     }
 }

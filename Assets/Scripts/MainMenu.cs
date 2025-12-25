@@ -10,11 +10,17 @@ public class MainMenu : MonoBehaviour
     {
         NightShiftPayload.GetOrCreate();
         NightShiftPayload.Instance.ResetPayload();
+        NightShiftPayload.Instance.nightCompleted = false; 
         SceneManager.LoadScene("DayScene");
     }
     
     public void PlayGame()
     {
+        AudioManager.Instance.PlaySFX("hoveringButtonMusic");
+        if (NightShiftPayload.Instance != null)
+        {
+            NightShiftPayload.Instance.nightCompleted = false;
+        }
         SceneManager.LoadScene("DayScene");
     }
 

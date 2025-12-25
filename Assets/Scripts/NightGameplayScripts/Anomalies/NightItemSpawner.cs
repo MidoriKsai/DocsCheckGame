@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DayGameplayScripts;
@@ -5,98 +6,112 @@ using DayGameplayScripts;
 public class NightItemSpawner : MonoBehaviour
 {
     [Header("UI")]
-    public RectTransform itemPanel;  // Панель для спавна предмета
-    public Image itemPrefab;          // Префаб предмета
-    public NightJournal journal;      // Журнал для записи найденных предметов
+    public RectTransform itemPanel;
+    public Image itemPrefab;
+    public NightJournal journal;
 
-    [Header("Настройки")]
-    public int minSwitches = 5;
-    public int maxSwitches = 20;
+    [Header("Settings")]
+    public int minSwitches = 3;
+    public int maxSwitches = 15;
 
     private Image currentItem;
     private Sprite chosenSprite;
     private int switchesNeeded;
     private int currentSwitchCount;
+    private bool spawned;
+    private float lastSwitchTime;
+    private const float switchCooldown = 0.1f;
 
-    private DayGameplayScripts.GuestData selectedGuest;
+    public GuestData selectedGuest;
 
-    void Start()
+    // 🔹 Инициализация ОДНОГО гостя
+    public void Init(GuestData guest)
     {
-        var payload = NightShiftPayload.Instance;
+        selectedGuest = guest;
 
-        if (payload == null)
-        {
-            Debug.LogError("NightShiftPayload отсутствует");
-            return;
-        }
-        
-        if (payload.skippedWanted != null && payload.skippedWanted.Count > 0)
-        {
-            selectedGuest = payload.skippedWanted[Random.Range(0, payload.skippedWanted.Count)];
-        }
-        else if (payload.extraWantedWithClues != null)
-        {
-            selectedGuest = payload.extraWantedWithClues;
-            Debug.Log("Нет разыскиваемых — выбран скрытый гость");
-        }
-
-        if (selectedGuest == null)
-        {
-            Debug.LogWarning("Не удалось выбрать гостя для ночной улики");
-            return;
-        }
-        NightShiftPayload.Instance.selectedGuest = selectedGuest;
         selectedGuest.LoadSprites();
+        
+        
 
         if (selectedGuest.LoadedClues == null || selectedGuest.LoadedClues.Length == 0)
         {
-            Debug.LogWarning($"У гостя {selectedGuest.firstName} нет улик");
+            Debug.LogWarning($"[NightItemSpawner] У гостя {selectedGuest.firstName} нет улик");
             return;
         }
-        
-        chosenSprite = selectedGuest.LoadedClues[Random.Range(0, selectedGuest.LoadedClues.Length)];
-        
+
+        // Фильтруем улики, которые уже есть в журнале
+        List<Sprite> remainingClues = new List<Sprite>();
+        foreach (var clue in selectedGuest.LoadedClues)
+        {
+            if (!NightShiftPayload.Instance.foundClueSprites.Contains(clue))
+                remainingClues.Add(clue);
+        }
+
+        if (remainingClues.Count == 0)
+        {
+            Debug.Log($"[NightItemSpawner] Все улики гостя {selectedGuest.firstName} уже найдены");
+            Destroy(gameObject); // <- убираем лишний объект
+            return;
+        }
+
+        chosenSprite = remainingClues[Random.Range(0, remainingClues.Count)];
+
         switchesNeeded = Random.Range(minSwitches, maxSwitches + 1);
         currentSwitchCount = 0;
+        spawned = false;
 
-        Debug.Log($"Ночная улика гостя {selectedGuest.firstName} появится через {switchesNeeded} переключений камеры");
+        Debug.Log($"[NightItemSpawner] Улика {selectedGuest.firstName} появится через {switchesNeeded} переключений");
     }
-
+    
     public void OnCameraSwitched()
     {
+        Debug.Log($"[NightItemSpawner] OnCameraSwitched вызван для {selectedGuest?.firstName}");
+    
+        if (spawned || selectedGuest == null) return;
+        if (Time.time - lastSwitchTime < switchCooldown) return;
+
+        lastSwitchTime = Time.time;
+
         currentSwitchCount++;
-        Debug.Log($"Переключение камеры: {currentSwitchCount}/{switchesNeeded}");
-        
-        if (currentSwitchCount == switchesNeeded)
+        Debug.Log($"[NightItemSpawner] {selectedGuest.firstName}: {currentSwitchCount}/{switchesNeeded}");
+
+        if (currentSwitchCount >= switchesNeeded)
         {
             SpawnItem();
+            spawned = true;
         }
     }
 
-    void SpawnItem()
+    private void SpawnItem()
     {
-        if (itemPrefab == null || itemPanel == null)
-        {
-            Debug.LogError("ItemPrefab или ItemPanel не назначены!");
-            return;
-        }
+        if (itemPrefab == null) Debug.LogError("itemPrefab не назначен!");
+        if (itemPanel == null) Debug.LogError("itemPanel не назначен!");
+
+        if (itemPrefab == null || itemPanel == null) return;
 
         currentItem = Instantiate(itemPrefab, itemPanel);
         currentItem.sprite = chosenSprite;
-        
-        var btn = currentItem.GetComponent<Button>();
-        btn.onClick.AddListener(OnItemClicked);
 
-        Debug.Log($"Улика гостя {selectedGuest.firstName} появилась на сцене");
+        RectTransform rt = currentItem.GetComponent<RectTransform>();
+        rt.anchoredPosition = Vector2.zero;
+        rt.sizeDelta = new Vector2(100, 100);
+
+        var btn = currentItem.GetComponent<Button>();
+        if (btn != null) btn.onClick.AddListener(OnItemClicked);
+
+        Debug.Log($"Улика {selectedGuest.firstName} появилась: {chosenSprite?.name}");
     }
 
     private void OnItemClicked()
     {
-        if (journal != null)
-        {
-            journal.AddClue(chosenSprite);
-            Destroy(currentItem.gameObject);
-            Debug.Log($"Улика {selectedGuest.firstName} добавлена в журнал");
-        }
+        journal?.AddClue(chosenSprite);
+    
+        // Добавляем найденную улику в NightShiftPayload
+        if (!NightShiftPayload.Instance.foundClueSprites.Contains(chosenSprite))
+            NightShiftPayload.Instance.foundClueSprites.Add(chosenSprite);
+
+        Destroy(currentItem.gameObject);
+
+        Debug.Log($"[NightItemSpawner] Улика {selectedGuest.firstName} добавлена в журнал");
     }
 }

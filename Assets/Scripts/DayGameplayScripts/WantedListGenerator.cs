@@ -1,22 +1,24 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
 
 namespace DayGameplayScripts
 {
     public class WantedListGenerator : MonoBehaviour
     {
-        DayManager dayManager;
         public List<GuestData> allGuests = new();
         public List<GuestData> wantedGuests = new();
 
-        [Range(1, 10)] public int countWanted = 6;
+        [Range(1, 10)]
+        public int countWanted = 6;
+
         public static bool IsReady { get; private set; }
 
         private void Awake()
         {
+            IsReady = false;
             StartCoroutine(LoadGuestsFromJson());
         }
 
@@ -24,7 +26,7 @@ namespace DayGameplayScripts
         {
             var path = Path.Combine(Application.streamingAssetsPath, "guests.json");
 
-            UnityWebRequest request = UnityWebRequest.Get(path);
+            using UnityWebRequest request = UnityWebRequest.Get(path);
             yield return request.SendWebRequest();
 
             if (request.result != UnityWebRequest.Result.Success)
@@ -38,14 +40,27 @@ namespace DayGameplayScripts
             var wrapper = JsonUtility.FromJson<GuestListWrapper>(wrappedJson);
 
             allGuests = wrapper.guests;
-            IsReady = true;
 
             foreach (var guest in allGuests)
                 guest.LoadSprites();
 
-            GenerateWantedGuests(); // ❗ теперь вызываем ТУТ
-        }
+            if (NightShiftPayload.Instance == null)
+            {
+                yield break;
+            }
 
+            if (NightShiftPayload.Instance.wantedGuests.Count > 0)
+            {
+                wantedGuests = NightShiftPayload.Instance.wantedGuests;
+            }
+            else
+            {
+                GenerateWantedGuests();
+                NightShiftPayload.Instance.wantedGuests = new List<GuestData>(wantedGuests);
+            }
+
+            IsReady = true;
+        }
 
         private void GenerateWantedGuests()
         {
@@ -57,13 +72,17 @@ namespace DayGameplayScripts
                 return;
             }
 
-            while (wantedGuests.Count < countWanted)
+            var pool = new List<GuestData>(allGuests);
+
+            while (wantedGuests.Count < countWanted && pool.Count > 0)
             {
-                var randomGuest = allGuests[Random.Range(0, allGuests.Count)];
-                if (!wantedGuests.Contains(randomGuest))
-                    wantedGuests.Add(randomGuest);
+                var randomIndex = Random.Range(0, pool.Count);
+                var guest = pool[randomIndex];
+                pool.RemoveAt(randomIndex);
+
+                wantedGuests.Add(guest);
             }
-            Debug.Log("Сгенерировано разыскиваемых: " + wantedGuests.Count);
+            Debug.Log($"Разыскиваемых сгенерировано: {wantedGuests.Count}");
         }
     }
 }

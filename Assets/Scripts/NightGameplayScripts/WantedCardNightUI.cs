@@ -34,9 +34,10 @@ namespace DayGameplayScripts
 
         private void OnClicked()
         {
+            AudioManager.Instance.PlaySFX("menuButtonMusic");
             if (_arrestManager == null || _guestData == null) return;
 
-            _arrestManager.Arrest(_guestData);
+            _arrestManager.OnArrestButtonClicked(_guestData);
         }
 
     }

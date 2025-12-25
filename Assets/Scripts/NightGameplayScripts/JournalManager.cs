@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DayGameplayScripts;
 
 public class NightJournal : MonoBehaviour
 {
@@ -20,5 +21,12 @@ public class NightJournal : MonoBehaviour
         img.gameObject.SetActive(true);
 
         count++;
+        
+        var payload = NightShiftPayload.Instance;
+        if (payload != null)
+        {
+            payload.foundCluesNight++;
+            Debug.Log($"Найдена улика. Всего за ночь: {payload.foundCluesNight}");
+        }
     }
 }
