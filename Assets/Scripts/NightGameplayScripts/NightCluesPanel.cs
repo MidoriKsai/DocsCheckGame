@@ -105,7 +105,7 @@ namespace NightGameplayScripts
 
             if (warningUI != null)
                 warningUI.SetWarnings(
-                    _payload.warningsToday + _payload.warningBonusPoints
+                    _payload.warningsToday
                 );
 
             if (cluesText != null)

@@ -9,12 +9,10 @@ namespace DayGameplayScripts
         [SerializeField] private WarningUIController warningUI;
         [SerializeField] private ArrestConfirmPanel confirmPanel;
 
-        private readonly HashSet<string> _arrestedGuestIds = new();
-
         public void OnArrestButtonClicked(GuestData guest)
         {
             if (guest == null) return;
-            if (_arrestedGuestIds.Contains(guest.id))
+            if (NightShiftPayload.ArrestedGuestIds.Contains(guest.id))
             {
                 Debug.Log("Гость уже арестован");
                 return;
@@ -35,6 +33,7 @@ namespace DayGameplayScripts
             if (eligibleForBonus)
             {
                 payload.warningsToday = Mathf.Max(0, payload.warningsToday - 2);
+                payload.AddEnergyDrink();
                 Debug.Log($"{guest.firstName} — бонус: -2 предупреждения");
             }
             else
@@ -44,15 +43,10 @@ namespace DayGameplayScripts
             }
 
             payload.arrestedWantedToday += 1;
-            _arrestedGuestIds.Add(guest.id);
+            NightShiftPayload.ArrestedGuestIds.Add(guest.id);
 
             if (warningUI != null)
-                warningUI.SetWarnings(payload.warningsToday + payload.warningBonusPoints);
-        }
-
-        public bool IsGuestArrested(GuestData guest)
-        {
-            return _arrestedGuestIds.Contains(guest.id);
+                warningUI.SetWarnings(payload.warningsToday);
         }
     }
 }

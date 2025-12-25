@@ -108,7 +108,11 @@ public class NightItemSpawner : MonoBehaviour
     
         // Добавляем найденную улику в NightShiftPayload
         if (!NightShiftPayload.Instance.foundClueSprites.Contains(chosenSprite))
+        {
             NightShiftPayload.Instance.foundClueSprites.Add(chosenSprite);
+            NightShiftPayload.Instance.foundCluesNight++;
+        }
+            
 
         Destroy(currentItem.gameObject);
 

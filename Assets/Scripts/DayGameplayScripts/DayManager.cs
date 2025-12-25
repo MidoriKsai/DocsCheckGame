@@ -27,6 +27,7 @@ namespace DayGameplayScripts
         public GameObject tiredPanel;
         public GameObject startNightPanel;
         public GameObject arrestConfirmationPanel;
+        public ArrestUIManager arrestUIManager;
         public WarningUIController warningUI;
         public Button nextDayButton;
         
@@ -56,8 +57,7 @@ namespace DayGameplayScripts
         private GuestController _currentGuestController;
         private GuestData _currentGuest;
         private TicketData _currentTicket;
-
-        private readonly HashSet<string> _arrestedGuestIds = new();
+        
         private readonly List<GuestData> _missedWantedToday = new();
 
         [Obsolete("Obsolete")]
@@ -91,7 +91,9 @@ namespace DayGameplayScripts
         {
             UpdateDateUI();
             UpdateEnergyDrinksUI();
-
+            NightShiftPayload.Instance.energyDrinksAtDayStart = NightShiftPayload.Instance.EnergyDrinks;
+            NightShiftPayload.Instance.warningsAtDayStart =  NightShiftPayload.Instance.warningsToday;
+            NightShiftPayload.Instance.foundCluesNight = 0;
             _currentGuestIndex = 0;
             _visitorsToday = 0;
             _arrestedWantedToday = 0;
@@ -176,6 +178,10 @@ namespace DayGameplayScripts
         {
             arrestConfirmationPanel.SetActive(false);
             EvaluateDecision(GuestDecision.Arrest);
+            if (_currentGuest != null)
+            {
+                arrestUIManager.ShowArrest(_currentGuest.LoadedFullBody);
+            }
         }
 
         public void OnConfirmArrestNo()
@@ -225,7 +231,7 @@ namespace DayGameplayScripts
                     if (isWanted)
                     {
                         correct = true;
-                        _arrestedGuestIds.Add(_currentGuest.id);
+                        NightShiftPayload.ArrestedGuestIds.Add(_currentGuest.id);
                         _arrestedWantedToday++;
                         _warnings = Mathf.Max(0, _warnings - 2);
                         _warningBonusPoints += 2;
@@ -278,8 +284,7 @@ namespace DayGameplayScripts
             
             var payload = NightShiftPayload.Instance;
             bool perfectShift = _missedWantedToday.Count == 0;
-            payload.currentDay++;
-
+            
             if (perfectShift && payload.wantedGuests.Count > 0)
             {
                 GuestData extra;
@@ -287,7 +292,7 @@ namespace DayGameplayScripts
                 {
                     extra = payload.wantedGuests[Random.Range(0, payload.wantedGuests.Count)];
                 }
-                while (_arrestedGuestIds.Contains(extra.id));
+                while (NightShiftPayload.ArrestedGuestIds.Contains(extra.id));
 
                 payload.extraWantedWithClues = extra;
                 Debug.Log($"[DayManager] ExtraWanted добавлен: {extra.firstName}");
@@ -306,36 +311,17 @@ namespace DayGameplayScripts
                 payload.arrestedWantedToday += _arrestedWantedToday;
                 payload.warningsToday += _warnings;
                 payload.warningBonusPoints += _warningBonusPoints;
-
-                // сохраняем найденные улики
-                if (NightStaticManager.nightShiftPayload != null)
-                {
-                    payload.foundCluesNight += NightStaticManager.nightShiftPayload.foundCluesNight;
-                    payload.foundClueSprites.AddRange(NightStaticManager.nightShiftPayload.foundClueSprites);
-                }
-
                 payload.wantedGuests = wantedListGenerator.wantedGuests;
 
-                // логика ночи
-                CalculateNightClues();
+
                 UpdateWantedNights();
                 CheckLoseCondition();
-
-                payload.nightCompleted = true;
             }
 
             // сохраняем итоговый payload для следующей сцены
             NightStaticManager.nightShiftPayload = NightShiftPayload.Instance;
             payload.wantedGuests = wantedListGenerator.wantedGuests;
             StartCoroutine(ShowPanelsAndLoadScene(showTired: perfectShift));
-        }
-        
-        private void CalculateNightClues()
-        {
-            var payload = NightShiftPayload.Instance;
-
-            int wantedCount = payload.wantedGuests.Count;
-            payload.foundCluesNight = wantedCount;
         }
         
         private void UpdateWantedNights()
@@ -404,7 +390,7 @@ namespace DayGameplayScripts
             {
                 nextDayButton.gameObject.SetActive(false);
                 payload.currentDay++;
-                if (payload.currentDay <= TotalDays && _arrestedGuestIds.Count != 6)
+                if (payload.currentDay <= TotalDays && NightShiftPayload.ArrestedGuestIds.Count != 6)
                     StartDay(payload.currentDay);
                 else
                     EndGame();
@@ -413,7 +399,7 @@ namespace DayGameplayScripts
 
         public bool IsGuestArrested(GuestData guest)
         {
-            return _arrestedGuestIds.Contains(guest.id);
+            return NightShiftPayload.ArrestedGuestIds.Contains(guest.id);
         }
         private IEnumerator ShowPanelsAndLoadScene(bool showTired)
         {
@@ -434,7 +420,7 @@ namespace DayGameplayScripts
             gameOverPanel.SetActive(true);
             gameOverText.text = $"Смен: {NightShiftPayload.Instance.currentDay}/5 \n" +
                           $"Гостей: {_totalGuests}  \n" +
-                          $"Выявлено сущностей: {_arrestedGuestIds.Count} \n" +
+                          $"Выявлено сущностей: {NightShiftPayload.ArrestedGuestIds.Count} \n" +
                           $"Предупреждений: {_warnings}/5 \n";
         }
         
@@ -443,10 +429,10 @@ namespace DayGameplayScripts
             endGamePanel.SetActive(true); 
             endGameText.text = $"Смен: {NightShiftPayload.Instance.currentDay-1}/5 \n" +
                                $"Гостей: {_totalGuests}  \n" +
-                               $"Выявлено сущностей: {_arrestedGuestIds.Count} \n" +
+                               $"Выявлено сущностей: {NightShiftPayload.ArrestedGuestIds.Count} \n" +
                                $"Предупреждений: {_warnings}/5 \n";
             
-            if (_arrestedGuestIds.Count == 6)
+            if (NightShiftPayload.ArrestedGuestIds.Count == 6)
             {
                 AudioManager.Instance.PlaySFX("winButtonMusic");
                 endGameDescriptionText.text = "Вы выполнили свой долг. Парк и его гости в безопасности...\n" +
