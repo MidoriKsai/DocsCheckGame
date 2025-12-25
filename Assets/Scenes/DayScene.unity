@@ -14425,7 +14425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayGameplayScripts.GuestGenerator
   wantedListGenerator: {fileID: 1961291124}
-  guestsPerDay: 5
+  guestsPerDay: 7
   dayManager: {fileID: 1703320921}
   todayGuests: []
 --- !u!114 &1630827919
