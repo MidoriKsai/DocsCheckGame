@@ -21,10 +21,16 @@ public class DrinkManager : MonoBehaviour
             Debug.LogError("NightShiftPayload не найден");
             return;
         }
-
+        _payload.OnEnergyDrinksChanged += RefreshUI;
         RefreshUI();
     }
-
+    
+    private void OnDestroy()
+    {
+        if (_payload != null)
+            _payload.OnEnergyDrinksChanged -= RefreshUI;
+    }
+    
     private void RefreshUI()
     {
         // очищаем старые кнопки
@@ -46,11 +52,9 @@ public class DrinkManager : MonoBehaviour
 
     private void OnDrinkPressed()
     {
-        RefreshUI();
         if (_payload.UseEnergyDrink())
         {
             AudioManager.Instance.PlaySFX("energyDrink");
-            RefreshUI();
         }
     }
 }
