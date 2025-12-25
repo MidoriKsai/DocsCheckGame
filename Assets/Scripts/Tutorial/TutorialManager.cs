@@ -47,12 +47,18 @@ public class TutorialManager : MonoBehaviour
     public GameObject WarningPanelPointer;
     public GameObject CameraViewSwitchPointer;
     
+    public GameObject tutorialCameraInfoPanel;
+    public TextMeshProUGUI tutorialCameraInfoText;
     
     public GameObject CameraSwitchPointer;
+    public GameObject ClickPointer;
     public GameObject CluePointer;
+    public GameObject JournalPointer;
     
     
     
+    
+    public bool TutorialUIBlocked { get; private set; }
     
 
     private void Awake()
@@ -82,6 +88,7 @@ public class TutorialManager : MonoBehaviour
 
         // Ждём первый клик
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
 
         // Скрываем первую панель и показываем вторую
         if (tutorialPanel1 != null) tutorialPanel1.SetActive(false);
@@ -95,6 +102,7 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator StartGameTutorial()
     {
         // Первая панель
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         if (tutorialPanel2 != null) tutorialPanel2.SetActive(false);
         tutorialInfoPanel.SetActive(true);
 
@@ -111,6 +119,7 @@ public class TutorialManager : MonoBehaviour
 
     void Step1()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         BlockAllButtons();
         CalendarPointer.SetActive(true);
         tutorialInfoText.text = "Календарь смен: 5 дней до завершения";
@@ -118,6 +127,7 @@ public class TutorialManager : MonoBehaviour
 
     void Step2()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         BlockAllButtonsExcept(WantedButton);
         CalendarPointer.SetActive(false);
         WantedPointer.SetActive(true);
@@ -129,16 +139,17 @@ public class TutorialManager : MonoBehaviour
     {
         WantedButton.onClick.RemoveListener(Step3);
         UnblockAllButtons();
-        BlockAllButtonsExcept(WantedDetailButton);
+        BlockAllButtons();
         BlockAllButtonsExcept(CloseWantedButton);
         WantedPointer.SetActive(false);
         WantedDetailPointer.SetActive(true);
         tutorialInfoText.text = "Опасные лица занесены в базу. Кликайте на них, чтобы узнать больше.";
-        CloseWantedButton.onClick.AddListener(() => StartCoroutine(Step4Coroutine()));
+        CloseWantedButton.onClick.AddListener(OnCloseWantedClicked);
     }
 
     private IEnumerator Step4Coroutine()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         CloseWantedButton.onClick.RemoveListener(OnCloseWantedClicked);
         BlockAllButtons();
         EnergyPointer.SetActive(true);
@@ -161,6 +172,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator Step5Coroutine()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         // Блокируем все кнопки
         BlockAllButtons();
 
@@ -180,6 +192,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator Step6Coroutine()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         // Блокируем все кнопки
         BlockAllButtons();
 
@@ -198,6 +211,7 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator Step7Coroutine()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         BlockAllButtons();
 
         // Активируем указатель
@@ -215,6 +229,7 @@ public class TutorialManager : MonoBehaviour
     
     private IEnumerator Step8Coroutine()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         BlockAllButtons();
 
         // Активируем указатель
@@ -232,6 +247,7 @@ public class TutorialManager : MonoBehaviour
     
     private IEnumerator Step9Coroutine()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         BlockAllButtons();
 
         // Активируем указатель
@@ -249,13 +265,180 @@ public class TutorialManager : MonoBehaviour
     
     private IEnumerator Step10Coroutine()
     {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
         BlockAllButtons();
 
         // Активируем указатель
+        nightWorkPanel.SetActive(true);
         WarningsPointer.SetActive(false);
+        EnergyCountPointer.SetActive(true);
 
         // Обновляем текст туториала
-        tutorialInfoText.text = "Хорошей смены";
+        tutorialInfoText.text = "После дневной смены вас ожидает ночная. Её время ограничено, следите за тем, сколько у вас осталось энергии.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step11Coroutine());
+    }
+    
+    private IEnumerator Step11Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        EnergyCountPointer.SetActive(false);
+        DrinkPointer.SetActive(true);
+
+        // Обновляем текст туториала
+        tutorialInfoText.text = "Воспользуйтесь энергетиком, чтобы восполнить 1 единицу энергии.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step12Coroutine());
+    }
+    
+    private IEnumerator Step12Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        DrinkPointer.SetActive(false);
+        ArrestPointer.SetActive(true);
+
+        // Обновляем текст туториала
+        tutorialInfoText.text = "С помощью этой кнопки вы можете попытаться арестовать человека из списка разыскиваемых.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step13Coroutine());
+    }
+    
+    private IEnumerator Step13Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        WarningPanelPointer.SetActive(true);
+        ArrestPointer.SetActive(false);
+
+        // Обновляем текст туториала
+        tutorialInfoText.text = "Будьте внимательны, если вы арестуете того, кто не находится на территории парка, вам будет начислено 2 предупреждения. Если вы арестуете правильно, то вам снимут 2 предупреждения.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step14Coroutine());
+    }
+    
+    private IEnumerator Step14Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        WarningPanelPointer.SetActive(false);
+        CameraViewSwitchPointer.SetActive(true);
+
+        // Обновляем текст туториала
+        tutorialInfoText.text = "Чтобы убедиться, что гость находится на территории, перейдите на камеры.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step15Coroutine());
+    }
+    
+    private IEnumerator Step15Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        CameraViewSwitchPointer.SetActive(false);
+        
+        nightWorkPanel.SetActive(false);
+        NightCameraPanel.SetActive(true);
+        
+        tutorialInfoPanel.SetActive(false);
+        tutorialCameraInfoPanel.SetActive(true);
+        
+        ClickPointer.SetActive(true);
+        
+
+        // Обновляем текст туториала
+        tutorialCameraInfoText.text = "Вам необходимо успеть переключить камеры определённое колличество раз, чтобы заметить улику, оставленную разыскиваемым.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step16Coroutine());
+    }
+    
+    private IEnumerator Step16Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        ClickPointer.SetActive(false);
+        CluePointer.SetActive(true);
+
+        // Обновляем текст туториала
+        tutorialCameraInfoText.text = "После появления нужно нажать на неё, чтобы занести в дежурный журнал.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step17Coroutine());
+    }
+    
+    private IEnumerator Step17Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        CluePointer.SetActive(false);
+        JournalPointer.SetActive(true);
+
+        // Обновляем текст туториала
+        tutorialCameraInfoText.text = "Посмотреть все пойманные улики можно здесь";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step18Coroutine());
+    }
+    
+    private IEnumerator Step18Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+        
+        JournalPointer.SetActive(false);
+        CameraSwitchPointer.SetActive(true);
+
+        // Обновляем текст туториала
+        tutorialCameraInfoText.text = "С помощью этой кнопки можно вернуться на рабочий стол.";
+
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        yield return new WaitForSeconds(0.2f);
+        
+        StartCoroutine(Step19Coroutine());
+    }
+    
+    private IEnumerator Step19Coroutine()
+    {
+        AudioManager.Instance.PlaySFX("menuButtonMusic");
+        BlockAllButtons();
+
+        // Активируем указатель
+        tutorialCameraInfoPanel.SetActive(false);
+        NightCameraPanel.SetActive(false);
+        tutorialInfoPanel.SetActive(true);
+        CameraSwitchPointer.SetActive(false);
+
+        // Обновляем текст туториала
+        tutorialInfoText.text = "Удачи! ";
 
         yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
         yield return new WaitForSeconds(0.2f);
