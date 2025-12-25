@@ -14059,6 +14059,7 @@ MonoBehaviour:
   totalWarningsText: {fileID: 1361456270}
   endShiftWarningsText: {fileID: 1886296173}
   gameOverText: {fileID: 1754463980}
+  gameOverDescriptionText: {fileID: 327748504}
   endGameText: {fileID: 2007674433}
   endGameDescriptionText: {fileID: 428477297}
 --- !u!114 &1703320922
