@@ -10,7 +10,7 @@ public class TimeManager : MonoBehaviour
 {
     public TextMeshProUGUI timeText;
 
-    private float realTimeDuration = 120f;
+    private float realTimeDuration = 60f;
     private float displayedDuration = 7f * 3600f;
     private float timer = 0f;
     public UnityEvent passed24seconds;

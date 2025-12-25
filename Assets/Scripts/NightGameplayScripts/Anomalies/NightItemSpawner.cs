@@ -12,7 +12,7 @@ public class NightItemSpawner : MonoBehaviour
 
     [Header("Settings")]
     public int minSwitches = 3;
-    public int maxSwitches = 15;
+    public int maxSwitches = 20;
 
     private Image currentItem;
     private Sprite chosenSprite;

@@ -14994,6 +14994,7 @@ MonoBehaviour:
   totalWarningsText: {fileID: 1361456270}
   endShiftWarningsText: {fileID: 1886296173}
   gameOverText: {fileID: 1754463980}
+  gameOverDescriptionText: {fileID: 327748504}
   endGameText: {fileID: 2007674433}
   endGameDescriptionText: {fileID: 428477297}
 --- !u!114 &1703320922
@@ -17482,7 +17483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   timeManager: {fileID: 0}
-  drinkManager: {fileID: 509128087}
+  drinkManagers: []
   energyCount: 5
   energyPrefab: {fileID: 9196518495344626831, guid: ff3dd440f10b51748ab676947779a2b5, type: 3}
 --- !u!222 &1893169768

@@ -2,10 +2,23 @@ using System;
 using DayGameplayScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private Button playGameButton;
+    
     [Obsolete("Obsolete")]
+    
+    private void Start()
+    {
+        if (playGameButton != null)
+        {
+            bool hasPlayedBefore = PlayerPrefs.HasKey("FirstLaunch");
+            playGameButton.interactable = hasPlayedBefore;
+        }
+    }
+    
     public void PlayNewGame()
     {
         NightShiftPayload.GetOrCreate();

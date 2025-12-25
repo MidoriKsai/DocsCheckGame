@@ -1,13 +1,17 @@
-using System.Collections.Generic;
-using UnityEngine;
 using DayGameplayScripts;
+using TMPro;
+using UnityEngine;
 
-namespace DayGameplayScripts
+namespace NightGameplayScripts
 {
     public class ArrestManager : MonoBehaviour
     {
         [SerializeField] private WarningUIController warningUI;
         [SerializeField] private ArrestConfirmPanel confirmPanel;
+        [SerializeField] private ArrestUIManager arrestUIManager;
+        public GameObject gameOverPanel;
+        public TextMeshProUGUI gameOverText;
+        public TextMeshProUGUI gameOverDescriptionText;
 
         public void OnArrestButtonClicked(GuestData guest)
         {
@@ -24,29 +28,52 @@ namespace DayGameplayScripts
         public void ConfirmArrest(GuestData guest)
         {
             var payload = NightShiftPayload.Instance;
-            if (payload == null || guest == null) return;
+            if (payload == null && guest == null) return;
 
-            bool eligibleForBonus =
-                (payload.skippedWanted != null && payload.skippedWanted.Contains(guest)) ||
-                (payload.extraWantedWithClues != null && payload.extraWantedWithClues == guest);
+            bool wasInParkAtNight =
+                payload.skippedWanted.Exists(g => g.id == guest.id) ||
+                (payload.extraWantedWithClues != null && payload.extraWantedWithClues.id == guest.id);
 
-            if (eligibleForBonus)
+            if (wasInParkAtNight)
             {
                 payload.warningsToday = Mathf.Max(0, payload.warningsToday - 2);
                 payload.AddEnergyDrink();
-                Debug.Log($"{guest.firstName} — бонус: -2 предупреждения");
+
+                payload.skippedWanted.RemoveAll(g => g.id == guest.id);
+
+                Debug.Log($"{guest.firstName} — ВЕРНЫЙ ночной арест");
             }
             else
             {
                 payload.warningsToday += 2;
-                Debug.Log($"{guest.firstName} — штраф: +2 предупреждения");
+                Debug.Log($"{guest.firstName} — НЕВЕРНЫЙ ночной арест");
+                
+                if (payload.warningsToday >= 5)
+                {
+                    GameOver();
+                    return;
+                }
+
+                payload.arrestedWantedToday += 1;
+                NightShiftPayload.ArrestedGuestIds.Add(guest.id);
+
+                warningUI?.SetWarnings(payload.warningsToday);
+                arrestUIManager?.ShowArrest(guest.LoadedFullBody);
             }
-
-            payload.arrestedWantedToday += 1;
-            NightShiftPayload.ArrestedGuestIds.Add(guest.id);
-
-            if (warningUI != null)
-                warningUI.SetWarnings(payload.warningsToday);
+        }
+        
+        private void GameOver() 
+        {
+            gameOverPanel.SetActive(true);
+            gameOverDescriptionText.text =
+                "Вы получили 5 из 5 предупреждений и не справились со своей служебной задачей.\n" +
+                "Парк развлечений омрачен чудовищными инцидентами.\n" +
+                "А также он временно закрыт по решению МКА. Ваш доступ аннулирован, Вы уволены!";
+            
+            gameOverText.text = $"Смен: {NightShiftPayload.Instance.currentDay}/5 \n" +
+                                $"Гостей: {NightShiftPayload.Instance.totalGuests}  \n" +
+                                $"Выявлено сущностей: {NightShiftPayload.ArrestedGuestIds.Count} \n" +
+                                $"Предупреждений: {NightShiftPayload.Instance.warningsToday}/5 \n";
         }
     }
 }
