@@ -25,6 +25,7 @@ namespace DayGameplayScripts
         public bool nightCompleted;
         public int currentDay = 1;
         public bool guestDiedTonight = false;
+        public int totalGuests;
 
         private int _energyDrinks = 2;
         private const int MaxEnergyDrinks = 2;
@@ -91,12 +92,14 @@ namespace DayGameplayScripts
         {
             skippedWanted.Clear();
             extraWantedWithClues = null;
-
+            
+            arrestedWantedToday = 0;
             visitorsToday = 0;
             arrestedWantedToday = 0;
             warningsToday = 0;
             foundCluesNight = 0;
             warningBonusPoints = 0;
+            totalGuests = 0;
             
             wantedGuests.Clear();
             foundClueSprites.Clear();

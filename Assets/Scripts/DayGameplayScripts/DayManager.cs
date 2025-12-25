@@ -42,13 +42,13 @@ namespace DayGameplayScripts
         public TextMeshProUGUI totalWarningsText;
         public TextMeshProUGUI endShiftWarningsText;
         public TextMeshProUGUI gameOverText;
+        public TextMeshProUGUI gameOverDescriptionText;
         public TextMeshProUGUI endGameText;
         public TextMeshProUGUI endGameDescriptionText;
 
         private int _currentGuestIndex;
         private const int TotalDays = 5;
-        private int _totalGuests;
-
+        
         private int _warnings;
         private int _visitorsToday;
         private int _arrestedWantedToday;
@@ -150,7 +150,7 @@ namespace DayGameplayScripts
             guestController.Initialize(guestData);
             _currentGuestController = guestController;
 
-            _totalGuests += 1;
+            NightShiftPayload.Instance.totalGuests++;
             
             guestController.OnReadyForDecision = (gc) =>
             {
@@ -306,21 +306,32 @@ namespace DayGameplayScripts
             if (payload != null)
             {
                 // сохраняем пропущенных разыскиваемых
-                payload.skippedWanted = new List<GuestData>(_missedWantedToday);
+                foreach (var guest in _missedWantedToday)
+                {
+                    if (!payload.skippedWanted.Exists(g => g.id == guest.id))
+                        payload.skippedWanted.Add(guest);
+                }
+
 
                 payload.visitorsToday = _visitorsToday;
                 payload.arrestedWantedToday += _arrestedWantedToday;
-                payload.warningsToday += _warnings;
+                payload.warningsToday = _warnings;
                 payload.warningBonusPoints += _warningBonusPoints;
                 payload.wantedGuests = wantedListGenerator.wantedGuests;
 
 
                 UpdateWantedNights();
             }
-
             // сохраняем итоговый payload для следующей сцены
             NightStaticManager.nightShiftPayload = NightShiftPayload.Instance;
             payload.wantedGuests = wantedListGenerator.wantedGuests;
+            
+            if (payload.guestDiedTonight)
+            {
+                Debug.Log("Проигрыш — переход в ночь отменён");
+                return;
+            }
+
             StartCoroutine(ShowPanelsAndLoadScene(showTired: perfectShift));
         }
         
@@ -328,14 +339,15 @@ namespace DayGameplayScripts
         {
             var payload = NightShiftPayload.Instance;
 
-            foreach (var guest in payload.wantedGuests)
+            foreach (var guest in payload.skippedWanted)
             {
                 guest.nightsOnTerritory++;
 
                 if (guest.nightsOnTerritory >= 3)
                 {
                     payload.guestDiedTonight = true;
-                    GameOver();
+                    GameOverWanted();
+                    return;
                 }
             }
         }
@@ -406,19 +418,38 @@ namespace DayGameplayScripts
         private void GameOver() 
         {
             gameOverPanel.SetActive(true);
+            gameOverDescriptionText.text =
+                "Вы получили 5 из 5 предупреждений и не справились со своей служебной задачей.\n" +
+                "Парк развлечений омрачен чудовищными инцидентами.\n" +
+                "А также он временно закрыт по решению МКА. Ваш доступ аннулирован, Вы уволены!";
+            
             gameOverText.text = $"Смен: {NightShiftPayload.Instance.currentDay}/5 \n" +
-                          $"Гостей: {_totalGuests}  \n" +
+                          $"Гостей: {NightShiftPayload.Instance.totalGuests}  \n" +
                           $"Выявлено сущностей: {NightShiftPayload.ArrestedGuestIds.Count} \n" +
-                          $"Предупреждений: {_warnings}/5 \n";
+                          $"Предупреждений: {NightShiftPayload.Instance.warningsToday}/5 \n";
+        }
+        
+        private void GameOverWanted() 
+        {
+            gameOverPanel.SetActive(true);
+            gameOverDescriptionText.text =
+                "Вы не смогли защитить посетителей парка. Сущности провели в парке 3 дня.\n" +
+                "Парк закрыт по решению МКА. Как только наступила третья ночь сущности пришли за Вами!\n" +
+                "Вы погибли!";
+            
+            gameOverText.text = $"Смен: {NightShiftPayload.Instance.currentDay}/5 \n" +
+                                $"Гостей: {NightShiftPayload.Instance.totalGuests}  \n" +
+                                $"Выявлено сущностей: {NightShiftPayload.ArrestedGuestIds.Count} \n" +
+                                $"Предупреждений: {NightShiftPayload.Instance.warningsToday}/5 \n";
         }
         
         private void EndGame() 
         {
             endGamePanel.SetActive(true); 
             endGameText.text = $"Смен: {NightShiftPayload.Instance.currentDay-1}/5 \n" +
-                               $"Гостей: {_totalGuests}  \n" +
+                               $"Гостей: {NightShiftPayload.Instance.totalGuests}  \n" +
                                $"Выявлено сущностей: {NightShiftPayload.ArrestedGuestIds.Count} \n" +
-                               $"Предупреждений: {_warnings}/5 \n";
+                               $"Предупреждений: {NightShiftPayload.Instance.warningsToday}/5 \n";
             
             if (NightShiftPayload.ArrestedGuestIds.Count == 6)
             {
@@ -432,7 +463,7 @@ namespace DayGameplayScripts
                 endGameDescriptionText.text =
                     "Музыка умолкла, гирлянды погасли. Пять дней прошли, но не всех сущностей удалось поймать.\n" +
                     "Парк закрыт, но тишина обманчива. Что-то всё ещё бродит среди аттракционов.. И забирает простых горожан\n" +
-                    "Звенит сирена МКА...За недостаточную эффективность будут последствия...";
+                    "Звучит сирена МКА...За недостаточную эффективность будут последствия...";
             }
         }
 

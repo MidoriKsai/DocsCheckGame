@@ -1,3 +1,4 @@
+using NightGameplayScripts;
 using UnityEngine;
 
 namespace DayGameplayScripts
