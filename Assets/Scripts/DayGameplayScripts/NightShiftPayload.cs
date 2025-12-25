@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using DayGameplayScripts;
 
 namespace DayGameplayScripts
 {
@@ -14,6 +14,7 @@ namespace DayGameplayScripts
         public int visitorsToday;
         public int arrestedWantedToday;
         public int warningsToday;
+        public int warningsAtDayStart;
         public int foundCluesNight;
         public int warningBonusPoints;
         public List<GuestData> wantedGuests = new List<GuestData>();
@@ -27,6 +28,10 @@ namespace DayGameplayScripts
 
         private int _energyDrinks = 2;
         private const int MaxEnergyDrinks = 2;
+        public int energyDrinksAtDayStart;
+        public event Action OnEnergyDrinksChanged;
+        
+        public static HashSet<string> ArrestedGuestIds = new();
 
         public int EnergyDrinks
         {
@@ -51,6 +56,7 @@ namespace DayGameplayScripts
         {
             if (_energyDrinks >= MaxEnergyDrinks) return false;
             _energyDrinks++;
+            OnEnergyDrinksChanged?.Invoke();
             return true;
         }
 
@@ -58,6 +64,7 @@ namespace DayGameplayScripts
         {
             if (_energyDrinks <= 0) return false;
             _energyDrinks--;
+            OnEnergyDrinksChanged?.Invoke();
             return true;
         }
 
@@ -80,50 +87,6 @@ namespace DayGameplayScripts
             }
         }
 
-        public void AddArrestedGuest(GuestData guest)
-        {
-            if (!wantedGuests.Contains(guest))
-                wantedGuests.Add(guest);
-
-            arrestedWantedToday++;
-        }
-
-        public void RecordSkippedGuest(GuestData guest)
-        {
-            if (!skippedWanted.Contains(guest))
-                skippedWanted.Add(guest);
-        }
-
-        /// <summary>
-        /// Переход на следующий день.
-        /// Сбрасывает только временные данные текущего дня.
-        /// Список разыскиваемых гостей остаётся.
-        /// </summary>
-        public void NextDay()
-        {
-            currentDay++;
-
-            // Очистка временных данных дня
-            skippedWanted.Clear();
-            extraWantedWithClues = null;
-
-            visitorsToday = 0;
-            arrestedWantedToday = 0;
-            warningsToday = 0;
-            foundCluesNight = 0;
-            warningBonusPoints = 0;
-            foundClueSprites.Clear();
-            selectedGuest = null;
-
-            nightCompleted = false;
-            guestDiedTonight = false;
-
-            EnergyDrinks = MaxEnergyDrinks;
-        }
-
-        /// <summary>
-        /// Полный сброс всех данных (например при старте новой игры)
-        /// </summary>
         public void ResetPayload()
         {
             skippedWanted.Clear();
@@ -134,10 +97,17 @@ namespace DayGameplayScripts
             warningsToday = 0;
             foundCluesNight = 0;
             warningBonusPoints = 0;
+            
+            wantedGuests.Clear();
+            foundClueSprites.Clear();
+            ArrestedGuestIds.Clear();
 
             selectedGuest = null;
             nightCompleted = false;
             guestDiedTonight = false;
+
+            currentDay = 1;
+            EnergyDrinks = 2;
         }
     }
 }

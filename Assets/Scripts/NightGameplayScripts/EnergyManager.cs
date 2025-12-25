@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class EnergyManager : MonoBehaviour
 {
     [SerializeField] private TimeManager timeManager;
-    [SerializeField] private DrinkManager drinkManager;
+    [SerializeField] private List<DrinkManager> drinkManagers;
 
     [SerializeField] private int energyCount;
     [SerializeField] private GameObject energyPrefab;
@@ -15,7 +15,11 @@ public class EnergyManager : MonoBehaviour
     {
         energyList =  new List<GameObject>();
         timeManager.passed24seconds.AddListener(DeleteEnergy);
-        drinkManager.drinkPressed.AddListener(AddEnergy);
+        foreach (var dm in drinkManagers)
+        {
+            dm.drinkPressed.AddListener(AddEnergy);
+        }
+
         
         for (int i = 0; i < energyCount; i++)
         {
