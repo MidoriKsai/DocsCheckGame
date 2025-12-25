@@ -1641,7 +1641,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   timeManager: {fileID: 1477958446}
-  drinkManager: {fileID: 2038335050}
+  drinkManagers:
+  - {fileID: 1725451180}
+  - {fileID: 2038335050}
   energyCount: 5
   energyPrefab: {fileID: 9196518495344626831, guid: ff3dd440f10b51748ab676947779a2b5, type: 3}
 --- !u!222 &485660832
@@ -3274,6 +3276,16 @@ MonoBehaviour:
   journal: {fileID: 1425802660}
   minSwitches: 3
   maxSwitches: 15
+  selectedGuest:
+    id: 
+    firstName: 
+    lastName: 
+    age: 
+    gender: 
+    fullBodySprite: 
+    portraitSprite: 
+    nightsOnTerritory: 0
+    clueSprites: []
 --- !u!1 &918905644
 GameObject:
   m_ObjectHideFlags: 0
@@ -6806,7 +6818,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   timeManager: {fileID: 1477958446}
-  drinkManager: {fileID: 2038335050}
+  drinkManagers:
+  - {fileID: 2038335050}
+  - {fileID: 1725451180}
   energyCount: 5
   energyPrefab: {fileID: 9196518495344626831, guid: ff3dd440f10b51748ab676947779a2b5, type: 3}
 --- !u!222 &1878046270

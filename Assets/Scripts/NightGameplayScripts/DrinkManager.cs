@@ -55,6 +55,7 @@ public class DrinkManager : MonoBehaviour
         if (_payload.UseEnergyDrink())
         {
             AudioManager.Instance.PlaySFX("energyDrink");
+            drinkPressed?.Invoke();
         }
     }
 }
