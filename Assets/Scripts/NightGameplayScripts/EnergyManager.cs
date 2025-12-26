@@ -51,6 +51,7 @@ public class EnergyManager : MonoBehaviour
         if (energyList.Count < energyCount)
         {
             CreateEnergy();
+            timeManager.AddTime(12f);
         }
     }
 

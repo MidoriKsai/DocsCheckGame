@@ -40,8 +40,9 @@ namespace NightGameplayScripts
                 payload.AddEnergyDrink();
 
                 payload.skippedWanted.RemoveAll(g => g.id == guest.id);
-
+                payload.arrestedWantedToday += 1;
                 Debug.Log($"{guest.firstName} — ВЕРНЫЙ ночной арест");
+                NightShiftPayload.ArrestedGuestIds.Add(guest.id);
             }
             else
             {
@@ -53,13 +54,9 @@ namespace NightGameplayScripts
                     GameOver();
                     return;
                 }
-
-                payload.arrestedWantedToday += 1;
-                NightShiftPayload.ArrestedGuestIds.Add(guest.id);
-
-                warningUI?.SetWarnings(payload.warningsToday);
-                arrestUIManager?.ShowArrest(guest.LoadedFullBody);
             }
+            warningUI?.SetWarnings(payload.warningsToday);
+            arrestUIManager?.ShowArrest(guest.LoadedFullBody);
         }
         
         private void GameOver() 

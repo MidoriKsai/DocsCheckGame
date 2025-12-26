@@ -239,6 +239,7 @@ namespace DayGameplayScripts
                         
                         if (NightShiftPayload.Instance != null)
                         {
+                            NightShiftPayload.Instance.skippedWanted.RemoveAll(g => g.id == _currentGuest.id);
                             bool added = NightShiftPayload.Instance.AddEnergyDrink();
                             if (added)
                             {
