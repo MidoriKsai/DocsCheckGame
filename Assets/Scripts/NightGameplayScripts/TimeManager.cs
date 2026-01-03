@@ -32,6 +32,7 @@ public class TimeManager : MonoBehaviour
         if (timer >= realTimeDuration)
         {
             nightEnded = true;
+            StopAllCoroutines();
             NightShiftPayload.Instance.nightCompleted = true;
             SceneManager.LoadScene("DayScene");
         }
@@ -41,7 +42,7 @@ public class TimeManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(24f);
+            yield return new WaitForSeconds(12f);
             passed24seconds.Invoke();
         }
     }
@@ -54,5 +55,12 @@ public class TimeManager : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
+    }
+    
+    public void AddTime(float seconds)
+    {
+        float progress = timer / realTimeDuration;
+        realTimeDuration += seconds;
+        timer = progress * realTimeDuration;
     }
 }
